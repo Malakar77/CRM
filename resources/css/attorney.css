@@ -1,0 +1,833 @@
+
+.b-example-divider {
+    width: 100%;
+    height: 3rem;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+}
+
+.b-example-vr {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 100vh;
+}
+
+.bi {
+    vertical-align: -.125em;
+    fill: currentColor;
+}
+
+.nav-scroller .nav {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+
+.btn-bd-primary {
+    --bd-violet-bg: #712cf9;
+    --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+    --bs-btn-font-weight: 600;
+    --bs-btn-color: var(--bs-white);
+    --bs-btn-bg: var(--bd-violet-bg);
+    --bs-btn-border-color: var(--bd-violet-bg);
+    --bs-btn-hover-color: var(--bs-white);
+    --bs-btn-hover-bg: #6528e0;
+    --bs-btn-hover-border-color: #6528e0;
+    --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+    --bs-btn-active-color: var(--bs-btn-hover-color);
+    --bs-btn-active-bg: #5a23c8;
+    --bs-btn-active-border-color: #5a23c8;
+}
+
+.bd-mode-toggle {
+    z-index: 1500;
+}
+
+.bd-mode-toggle .dropdown-menu .active .bi {
+    display: block !important;
+}
+.container-block{
+    width: 100%;
+    padding: 0px 20px 20px 20px;
+    height: 100vh; /* установите высоту контейнера по высоте окна браузера (100% высоты экрана) */
+}
+
+
+/* Стили для подложки */
+
+.overlay {
+
+    /* Скрываем подложку  */
+    opacity: 0;
+    visibility: hidden;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 20;
+    transition: .3s all;
+}
+.error{
+    border: 1px solid red !important;
+}
+
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: rotateZ(45deg);
+    perspective: 1000px;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    color: #fff;
+}
+.loader:before,
+.loader:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 1px;
+    left: -10px;
+    width: inherit;
+    height: inherit;
+    border-radius: 50%;
+    transform: rotateX(70deg);
+    animation: 1s spin linear infinite;
+}
+.loader:after {
+    color: #FF3D00;
+    transform: rotateY(70deg);
+    animation-delay: .4s;
+}
+
+@keyframes rotate {
+    0% {
+        transform: translate(-50%, -50%) rotateZ(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotateZ(360deg);
+    }
+}
+
+@keyframes rotateccw {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(-360deg);
+    }
+}
+
+@keyframes spin {
+    0%,
+    100% {
+        box-shadow: .2em 0px 0 0px currentcolor;
+    }
+    12% {
+        box-shadow: .2em .2em 0 0 currentcolor;
+    }
+    25% {
+        box-shadow: 0 .2em 0 0px currentcolor;
+    }
+    37% {
+        box-shadow: -.2em .2em 0 0 currentcolor;
+    }
+    50% {
+        box-shadow: -.2em 0 0 0 currentcolor;
+    }
+    62% {
+        box-shadow: -.2em -.2em 0 0 currentcolor;
+    }
+    75% {
+        box-shadow: 0px -.2em 0 0 currentcolor;
+    }
+    87% {
+        box-shadow: .2em -.2em 0 0 currentcolor;
+    }
+}
+
+.emptyInput{
+    border: 1px red solid;
+}
+
+.active{
+    background-color: #94999d !important;
+    border: 1px #94999d solid !important;
+}
+.nav-icon-container{
+    width: 100%;
+}
+.nav-icon-block{
+    display: block;
+    float: right;
+}
+.nav-icon{
+    display: inline-block;
+    margin-right: 15px;
+}
+.nav-icon:hover{
+    color: #0d6efd;
+}
+
+.container_blank{
+    margin: 0;
+    font-size: 9px;
+    font-family: "DejaVu Sans", sans-serif;
+}
+
+table{
+    border: 1px solid #0f0f0f;
+    border-collapse: collapse;
+
+}
+
+thead:nth-child(1n){
+    height: 50px !important;
+}
+
+tbody:nth-child(1n){
+    height: 10px;
+    font-size: 9px;
+}
+
+.trHead > td {
+    height: 50px;
+    font-size: 9px;
+}
+
+tbody:nth-child(2) > td{
+    height: 15px;
+    min-height: 10px;
+    font-size: 9px;
+}
+
+tbody:nth-child(1n){
+    height: auto;
+    padding: 5px;
+}
+
+th{
+    font-size: 8px;
+}
+
+th,td{
+    border: 1px solid #0f0f0f;
+    text-align: center;
+}
+
+.line{
+    margin-top: 10px;
+    height: 20px;
+    border-bottom: 1px solid #000000;
+    width: 100%;
+}
+
+.line:before{
+    content: 'Линия отреза';
+    display: block;
+    text-align: center;
+}
+
+.containerInfo{
+    width: 100%;
+    height: 49px;
+    margin-top: 10px;
+
+}
+
+.rowInfo{
+    width: 50%;
+    height: 100%;
+    margin-left: auto;
+
+
+}
+
+.oneInfo{
+    width: 100%;
+    text-align: right;
+    display: block;
+}
+
+.twoInfo{
+    width: 100%;
+    text-align: right;
+    display: block;
+}
+
+.treeInfo{
+    width: 100%;
+    text-align: right;
+    display: block;
+}
+
+.containerCode{
+
+    height: 55px;
+}
+
+.colCodeOne{
+    width: 50px;
+    border: 1px solid #000000;
+    text-align: center;
+    margin-left: auto;
+}
+
+.colCodeTwo {
+    display: block;
+    width: 30%;
+    margin-left: auto;
+    text-align: end;
+}
+
+.colCodeTwo span:nth-child(1) {
+
+    text-align: right;
+    margin-right: 13px; /* Отступ между span-ами */
+    margin-left: 32.391%;
+
+}
+
+.colCodeTwo span:nth-child(2) {
+    width: 50px;
+    border: 1px solid #000000;
+    text-align: center;
+    padding: 2px 7px 2px 7px;
+}
+
+.colCodeTree{
+
+    display: flex; /* Включаем Flexbox */
+    align-items: center; /* Выравнивание элементов по вертикали */
+    justify-content: flex-end; /* Выравнивание элементов по горизонтали */
+}
+
+.colCodeTree span:nth-child(1){
+    font-size: 12px;
+    width: 18%;
+    text-align: right;
+    display: inline-block;
+    height: 15px;
+    margin-right: 2%;
+}
+
+.colCodeTree span:nth-child(2){
+    font-size: 12px;
+    width: 50%;
+    text-align: center;
+    display: inline-block;
+    height: 15px;
+    margin-right: 13.591%;
+    border-bottom: 1px solid #000000;
+    align-items: center;
+}
+.colCodeTree span:nth-child(3){
+    text-align: right;
+    margin-right: 13px; /* Отступ между span-ами */
+
+}
+
+.colCodeTree span:nth-child(4){
+    width: 50px;
+    border: 1px solid #000000;
+    text-align: left;
+    display: inline-block;
+    height: 15px;
+}
+
+.containerNum{
+    width: 100%;
+    height: 30px;
+    margin-top: 10px;
+    display: flex; /* Включаем Flexbox */
+    align-items: center; /* Выравнивание элементов по вертикали */
+    justify-content: flex-end; /* Выравнивание элементов по горизонтали */
+}
+
+.rowNum{
+    width: 50%;
+    margin: 0 auto;
+}
+
+.colNum span:nth-child(1){
+    font-size: 15px;
+    font-weight: bold;
+    font-style: italic;
+    display: inline-block;
+}
+
+.colNum span:nth-child(2){
+    width: 30%;
+    border-bottom: 1px solid #000000;
+    display: inline-block;
+    font-size: 12px;
+    text-align: center;
+}
+
+.containerDate{
+    width: 100%;
+    height: 15px;
+    display: flex;
+    align-items: center; /* Выравнивание элементов по вертикали */
+    justify-content: center; /* Выравнивание элементов по горизонтали */
+
+}
+
+.rowDate{
+    margin: 0 auto;
+    width: 50%;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.colDate span:nth-child(1){
+    display: inline-block;
+    align-items: center;
+    width: 30%;
+}
+
+.colDate span:nth-child(2):before{
+    content: '"';
+}
+.colDate span:nth-child(2):after{
+    content: '"';
+}
+.colDate span:nth-child(2){
+    width: 50px;
+    display: inline-block;
+    border-bottom: 1px solid #000000;
+    text-align: center;
+}
+.colDate span:nth-child(3){
+    width: 80px;
+    display: inline-block;
+    border-bottom: 1px solid #000000;
+    text-align: center;
+}
+.colDate span:nth-child(4){
+    width: 50px;
+    display: inline-block;
+    border-bottom: 1px solid #000000;
+    text-align: center;
+}
+
+.container_date{
+    width: 100%;
+    height: 20px;
+    margin-top: 10px;
+}
+
+.row_date{
+    font-size: 11px;
+}
+
+.col_date span:nth-child(1){
+    align-items: center;
+}
+
+.col_date span:nth-child(2):before{
+    content: '"';
+}
+
+.col_date span:nth-child(2):after{
+    content: '"';
+}
+
+.col_date span:nth-child(2){
+    width: 30px;
+    border-bottom: 1px solid #000000;
+    display: inline-block;
+    text-align: center;
+    margin-right: 5px;
+}
+
+.col_date span:nth-child(3){
+    width: 80px;
+    border-bottom: 1px solid #000000;
+    display: inline-block;
+    text-align: center;
+    margin-right: 5px;
+}
+
+.container_company{
+    width: 100%;
+    min-height: 20px;
+    margin-top: 5px;
+}
+
+.row_company{
+    font-size: 11px;
+}
+
+.col_company span:nth-child(1){
+    height: auto;
+    min-height: 20px;
+    border-bottom: 1px solid #000000;
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    box-sizing: border-box; /* Учитываем отступы (padding) */
+    word-wrap: break-word;
+
+}
+
+.col_company span:nth-child(2):before{
+    font-size: 8px;
+    content: ' наименование потребителя и его адрес ';
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+}
+
+.container_pay{
+    width: 100%;
+    min-height: 20px;
+    margin-top: 5px;
+}
+
+.row_pay{
+    font-size: 11px;
+}
+
+.col_pay span:nth-child(1){
+    height: auto;
+    min-height: 20px;
+    border-bottom: 1px solid #000000;
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    box-sizing: border-box; /* Учитываем отступы (padding) */
+    word-wrap: break-word;
+}
+
+.col_pay span:nth-child(2):before{
+    font-size: 8px;
+    content: ' наименование плательщика и его адрес ';
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+}
+
+.container_check{
+    width: 100%;
+    height: 20px;
+    margin-top: 25px;
+
+}
+
+.row_check{
+    font-size: 11px;
+
+}
+
+.col_check span:nth-child(1){
+    display: inline-block;
+    width: 9%;
+    margin-right: 0;
+}
+
+.col_check span:nth-child(2){
+    display: inline-block;
+    width: 90.5%;
+    border-bottom: 1px solid #000000;
+}
+
+.col_check span:nth-child(3):before{
+    content: ' наименование банка ';
+    font-size: 8px;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    position: relative;  /* Относительное позиционирование */
+    top: -5px;           /* Поднимите элемент вверх */
+    margin-top: 0;       /* Убираем отступ сверху */
+    line-height: normal; /* Устанавливаем нормальное выравнивание по линии */
+}
+
+.container_user{
+    width: 100%;
+    height: 30px;
+    margin-top: 10px;
+}
+
+.row_user{
+    width: 100%;
+    font-size: 11px;
+}
+
+.col_user span:nth-child(1){
+    display: inline-block;
+    width: 20%;
+
+}
+
+.col_user span:nth-child(2){
+    display: inline-block;
+    border-bottom: 1px solid #000000;
+    width: 79.5%;
+}
+
+.col_user span:nth-child(3):before{
+    content: ' должность \00A0\00A0\00A0\00A0\00A0\00A0 фамилия, имя, отчество ';
+    font-size: 8px;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    position: relative;  /* Относительное позиционирование */
+    top: -5px;           /* Поднимите элемент вверх */
+    margin-top: 0;       /* Убираем отступ сверху */
+    line-height: normal; /* Устанавливаем нормальное выравнивание по линии */
+}
+
+.container_passport{
+    width: 100%;
+
+}
+
+.row_passport{
+    font-size: 11px;
+}
+
+.col_passport span:nth-child(1):after{
+    content: ': серия ';
+}
+.col_passport span:nth-child(2){
+    display: inline-block;
+    width: 12%;
+    border-bottom: 1px solid #000000;
+    text-align: center;
+}
+.col_passport span:nth-child(4){
+    display: inline-block;
+    width: 15%;
+    border-bottom: 1px solid #000000;
+    text-align: center;
+}
+
+.container_iss{
+    width: 100%;
+    height: 10px;
+
+}
+
+.row_iss{
+    font-size: 11px;
+}
+
+.col_iss span:nth-child(1){
+    display: inline-block;
+    width: 9%;
+    margin-right: 15px;
+}
+
+.col_iss span:nth-child(2){
+    display: inline-block;
+    width: 88.2%;
+    border-bottom: 1px solid #000000;
+}
+
+.container_iss_date{
+    width: 100%;
+    height: 20px;
+    margin-top: 8px;
+}
+.row_iss_date{
+    font-size: 11px;
+}
+.col_iss_date span:nth-child(1){
+    width: 15%;
+    display: inline-block;
+}
+.col_iss_date span:nth-child(2):before{
+    content: ' " ';
+}
+.col_iss_date span:nth-child(2):after{
+    content: ' " ';
+}
+.col_iss_date span:nth-child(2){
+    width: 7%;
+    display: inline-block;
+    text-align: center;
+    border-bottom: 1px solid #000000;
+}
+.col_iss_date span:nth-child(3){
+    width: 11%;
+    display: inline-block;
+    text-align: center;
+    border-bottom: 1px solid #000000;
+}
+.col_iss_date span:nth-child(4){
+    width: 7%;
+    display: inline-block;
+    text-align: center;
+    border-bottom: 1px solid #000000;
+}
+.container_provider{
+    width: 100%;
+    height: 30px;
+    font-size: 11px;
+}
+.col_provider span:nth-child(1){
+    display: inline-block;
+    width: 15%;
+}
+.col_provider span:nth-child(2){
+    display: inline-block;
+    width: 84.5%;
+    border-bottom: 1px solid #000000;
+}
+.col_provider span:nth-child(3):before{
+    content: ' наименование поставщика';
+    font-size: 8px;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    position: relative;  /* Относительное позиционирование */
+    top: -5px;           /* Поднимите элемент вверх */
+    margin-top: 0;       /* Убираем отступ сверху */
+    line-height: normal; /* Устанавливаем нормальное выравнивание по линии */
+}
+
+.container_tmc{
+    width: 100%;
+    height: 30px;
+    font-size: 11px;
+}
+
+.col_tmc span:nth-child(1){
+    display: inline-block;
+    width: 25%;
+}
+.col_tmc span:nth-child(2){
+    display: inline-block;
+    border-bottom: 1px solid #000000;
+    width: 74.5%;
+}
+.col_tmc span:nth-child(3):before{
+    content: ' наименование, номер и дата документа';
+    font-size: 8px;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    position: relative;  /* Относительное позиционирование */
+    top: -5px;           /* Поднимите элемент вверх */
+    margin-top: 0;       /* Убираем отступ сверху */
+    line-height: normal; /* Устанавливаем нормальное выравнивание по линии */
+}
+
+.container_table{
+    width: 100%;
+}
+
+
+.col_table table{
+    width: 100%;
+    text-align: center;
+}
+.col_table{
+    width: 100%;
+    display: inline-block;
+}
+.col_table:before{
+    content: ' Перечень товарно-материальных ценностей, подлежащих получению';
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+.container_signature_user {
+    width: 100%;
+    height: 40px;
+    font-size: 8px;
+    position: relative;  /* Для вертикального расположения дочерних элементов */
+
+}
+
+.row_signature_user {
+    display: block;
+    width: 100%;
+    height: 20px;
+    position: absolute; /* Устанавливаем абсолютное позиционирование */
+    bottom: 0; /* Прижимаем к низу контейнера */
+}
+
+.col_signature_user span:nth-child(1){
+    margin-left: 3%;
+    display: inline-block;
+    width: 30%;
+}
+.col_signature_user span:nth-child(2){
+    display: inline-block;
+    width: 30%;
+    border-bottom: 1px solid #000000;
+    margin-right: 15px;
+}
+
+.container_signature_company {
+    width: 100%;
+    height: 25px;
+    font-size: 8px;
+}
+
+.row_signature_company {
+    width: 70%;
+    height: 40px;
+    margin: 0 auto;
+    position: relative;
+
+}
+
+.col_signature_company span:nth-child(2),
+.col_signature_company span:nth-child(4) {
+
+    display: inline-block;
+    width: 30%;
+    border-bottom: 1px solid #000000;
+    margin-right: 15px;
+    position: relative;
+    text-align: center;
+}
+
+.col_signature_company span:nth-child(2):after {
+
+    content: 'подпись';
+    font-size: 8px;
+    position: absolute;
+    left: 0;
+    top: 1px; /* Текст будет под линией */
+    width: 100%;
+    text-align: center;
+}
+
+.col_signature_company span:nth-child(5):after {
+    content: 'расшифровка подписи';
+    font-size: 8px;
+    position: absolute;
+    left: 60px;
+    top: 10px; /* Текст будет под линией */
+    width: 100%;
+    text-align: center;
+}
+
+.container_stamp{
+    width: 100%;
+    height: 10px;
+    font-size: 11px;
+}
+.row_stamp{
+    width: 90%;
+    margin: 0 auto;
+}

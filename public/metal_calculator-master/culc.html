@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Калькулятор Металла</title>
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" media="all" href="exit.css" />
+	<script src="culc.js"></script>
+
+	<style>
+		span.im-static {
+			color: grey;
+		}
+
+		div.im-colormask {
+			display: inline-block;
+			border-style: inset;
+			border-width: 2px;
+			-webkit-appearance: textfield;
+			-moz-appearance: textfield;
+			appearance: textfield;
+		}
+
+		div.im-colormask > input {
+			position: absolute;
+			display: inline-block;
+			background-color: transparent;
+			color: transparent;
+			-webkit-appearance: caret;
+			-moz-appearance: caret;
+			appearance: caret;
+			border-style: none;
+			left: 0;
+			/*calculated*/
+		}
+
+		div.im-colormask > input:focus {
+			outline: none;
+		}
+
+		div.im-colormask > input::-moz-selection {
+			background: none;
+		}
+
+		div.im-colormask > input::selection {
+			background: none;
+		}
+
+		div.im-colormask > input::-moz-selection {
+			background: none;
+		}
+
+		div.im-colormask > div {
+			color: black;
+			display: inline-block;
+			width: 100px;
+			/*calculated*/
+		}
+
+		/* header */
+
+		.app-header {
+			background: rgba(28, 79, 130, 1);
+		}
+		/* sidebar */
+
+		.section {
+			background: rgba(28, 79, 130, 0.03);
+		}
+
+		.section-nav li.active a,
+		.section-nav li a,
+		.section-nav li a:hover,
+		.calc-togler {
+			color: rgba(28, 79, 130, 1);
+		}
+
+		.section-nav li a:hover {
+			background: rgba(28, 79, 130, 0.05);
+		}
+
+		.section-nav li.active a {
+			background: rgba(28, 79, 130, 0.07);
+			opacity: 1;
+		}
+
+		.section-nav li a {
+			opacity: 0.8;
+		}
+		/* common elements */
+
+		.btn-link {
+			background: rgba(28, 79, 130, 0.2);
+			color: rgba(28, 79, 130, 1);
+		}
+
+		.btn-link:hover {
+			background: rgba(28, 79, 130, 0.3);
+			color: rgba(28, 79, 130, 1);
+		}
+
+		.history-list {
+			background: rgba(28, 79, 130, 0.03) !important;
+		}
+
+		.history-list li:hover {
+			background: rgba(28, 79, 130, 0.05) !important;
+		}
+		/* form */
+
+		.form-container .active .input-append,
+		.active input[type="text"] {
+			color: rgba(28, 79, 130, 1);
+		}
+
+		input[type="text"]:focus,
+		input[type="email"]:focus,
+		textarea:focus {
+			border-color: rgba(28, 79, 130, 1);
+		}
+		/* result */
+
+		.result-container {
+			background: rgba(28, 79, 130, 0.03);
+		}
+		/*
+           * Button
+           */
+
+		.main-btn {
+			background: #005575;
+		}
+
+		.main-btn:hover {
+			background: #06698ee0;
+		}
+	</style>
+
+</head>
+
+<body>
+
+<div class="app-wrap">
+	<div id="app">
+		<div class="app-container height100">
+			<div class="app-header"></div>
+			<div class="app-content-wrap">
+				<div class="units-row units-split height100">
+					<div data-region="sidebar" class="unit-30 app-sidebar height100">
+						<div class="units-row units-split height100">
+							<div class="unit-40 section" data-region="metalls">
+								<div class="section-header">Металл</div>
+								<div class="section-container">
+									<nav class="nav nav-stacked section-nav">
+										<ul data-region="metall-list">
+											<li class="active">
+												<a target="1" data-value="steel">Черный</a>
+											</li>
+											<li><a target="1" data-value="stainlessSteel">Нержавейка</a>
+											</li>
+											<li><a target="1" data-value="aluminum">Алюминий</a>
+											</li>
+											<li><a target="1" data-value="cuprum">Медь</a>
+											</li>
+											<li><a target="1" data-value="brass">Латунь</a>
+											</li>
+											<li><a target="1" data-value="bronze">Бронза</a>
+											</li>
+											<li><a target="1" data-value="titan">Титан</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+							<div class="unit-60 section" data-region="sortaments">
+								<div class="section-header">Сортамент</div>
+								<div class="section-container">
+									<nav class="nav nav-stacked section-nav">
+										<ul data-region="sortament-list">
+											<li><a onclick="return false;" href="#" data-value="Rebar" >
+												Арматура
+											</a>
+											</li>
+											<li><a onclick="return false;" href="#" data-value="IBeam">
+												Балка/двутавр
+											</a>
+											</li>
+											<li><a onclick="return false;" href="#" data-value="squareBillet">
+												Квадрат
+											</a>
+											</li>
+											<li><a onclick="return false;" href="#" data-value="rod">
+												Круг/пруток
+											</a>
+											</li>
+											<li><a onclick="return false;" href="#" data-value="strand">
+												Лента
+											</a>
+											</li>
+											<li><a onclick="return false;" href="#" data-value="sheet">
+												Лист/плита
+											</a>
+											</li>
+											<li class="active"><a onclick="return false;" href="#" data-value="pipe">
+												Труба круглая
+											</a>
+											</li>
+											<li><a onclick="return false;" href="#" data-value="squarePipe">
+												Труба профильная
+											</a>
+											</li>
+											<li><a onclick="return false;" href="#" data-value="angleBar">
+												Уголок
+											</a>
+											</li>
+											<li><a onclick="return false;" href="#" data-value="channelBeam">
+												Швеллер
+											</a>
+											</li>
+											<li><a onclick="return false;" href="#" data-value="hexagonSteel">
+												Шестигранник
+											</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div data-region="details" class="unit-70 app-content section section-details non-border">
+						<div class="height100">
+							<div class="section-container">
+								<div class="section-wrap">
+									<div class="section-header strip-header" data-region="details:title">Расчет веса</div>
+									<div class="units-row units-split details-container">
+										<div class="unit-60 img" data-region="details:pane">
+											<img class="pane-img shape-pipeCircle" src="img/PipeCircle.png">
+
+										</div>
+										<div class="unit-40" data-region="details:form">
+											<div class="form-container">
+												<div class="calc-togler-wrap" data-region="details:form:calc_togler">
+													<div>
+														<div class="calc-togler-container"></div>
+													</div>
+												</div>
+												<form class="forms" data-region="details:form:fields">
+													<div class="childForm">
+														<div>
+															<label for="country">
+																<span class="field-label">Марка стали</span>
+																<select class="width-100" name="p" data-region="options">
+
+																	<option value="7.8" selected="">Ст 3</option>
+
+																	<option value="7.85">10</option>
+
+																	<option value="7.85">20</option>
+
+																	<option value="7.82">40Х</option>
+
+																	<option value="7.82">45</option>
+
+																	<option value="7.81">65</option>
+
+																	<option value="7.85">65Г</option>
+
+																	<option value="7.85">09Г2С</option>
+
+																	<option value="7.75">15Х5М</option>
+
+																	<option value="7.85">10ХСНД</option>
+
+																	<option value="7.8">12Х1МФ</option>
+
+																	<option value="7.81">ШХ15</option>
+
+																	<option value="8.3">Р6М5</option>
+
+																	<option value="7.83">У7</option>
+
+																	<option value="7.84">У8</option>
+
+																	<option value="7.83">У8А</option>
+
+																	<option value="7.81">У10</option>
+
+																	<option value="7.81">У10А</option>
+
+																	<option value="7.81">У12А</option>
+
+																	<option value="7.8">Прочее</option>
+
+																</select>
+															</label>
+														</div>
+														<div>
+															<label>
+																<span class="field-label">Внешний диаметр трубы D</span>
+																<input class="width-100 dia" name="d" type="text" placeholder="0">
+																<span class="input-append">мм.</span>
+															</label>
+														</div>
+														<div>
+															<label>
+																<span class="field-label">Толщина стенки t</span>
+																<input class="width-100 width" name="t" type="text" placeholder="0">
+																<span class="input-append">мм.</span>
+															</label>
+														</div>
+														<div>
+															<label>
+																<span class="field-label">Длина L</span>
+																<input class="width-100 length" name="l" type="text" placeholder="0">
+																<span class="input-append">м.</span>
+															</label>
+														</div><a class="btn main-btn btn-green width-100">Рассчитать</a></div>
+												</form>
+											</div>
+										</div>
+									</div>
+									<div data-region="details:result">
+										<div class="units-row units-split result-container">
+											<div style="overflow: visible; height: 0px;" data-region="details:partner_download_btn"></div>
+											<div style="position: relative;">
+												<div class="unit-40" data-region="details:c1">
+
+													<div style="margin: 8px 0px 0px 18px;">
+													</div>
+
+												</div>
+												<div class="unit-60" data-region="details:c2">
+													<ul class="blocks-5 result-blocks">
+
+														<li class="block-price-square">
+															<div data-region="details:result:s" style="display: none;">
+																<div class="result-item-block">
+																	<span class="result-item-label">Площадь</span>
+																	<span class="result-item-value" data-region="details:result:square">0 м2</span>
+																</div>
+															</div>
+														</li>
+
+														<li class="block-price-weight" data-region="details:result:w">
+															<div class="result-item-block">
+																<span class="result-item-label" data-region="details:result:w:label">Вес</span>
+																<span class="result-item-value" data-region="details:result:weight">0.000 кг</span>
+															</div>
+														</li>
+
+														<li class="block-price-request" data-region="details:result:price-request-block">
+														</li>
+													</ul>
+													<div class="unit-70 block-price-request-btn" data-region="details:result:price-request-button">
+													</div>
+												</div>
+											</div>
+											<div class="unit-100" data-region="details:partner_advert"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+
+</html>

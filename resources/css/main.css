@@ -1,0 +1,54 @@
+.time{
+    text-align: end;
+    font-size: 12px;
+    color: #aeb2b6;
+}
+
+.title_todo_position{
+    /*border-bottom: 1px solid #4a5568;*/
+}
+.discript{
+    font-style: italic;
+}
+.todoList{
+    border-radius: 2px;
+}
+.todo_company{
+    font-size: 12px;
+}
+.todo{
+    padding: 0 10px 10px 10px;
+    border-radius: 2px;
+    white-space: normal;
+}
+.dis_block{
+    
+    max-height: 150px;
+    border-radius: 5px;
+    border-bottom: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
+    border-top: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
+    border-right: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
+}
+
+.todo_header{
+    position: sticky;
+    top: 0;
+    background-color: #2b3035;
+}
+
+.active{
+    background-color: #0a5cae !important;
+}
+.active .discript{
+    background-color: #0a5cae !important;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+    background-color: rgba(106, 161, 243, 0.2);;
+    /*background-color: #6aa1f3;*/
+}
+
+a {
+    color: rgb(255, 255, 255);
+    text-decoration: underline;
+}

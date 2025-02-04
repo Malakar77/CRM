@@ -1,0 +1,11 @@
+.closeTegI:hover{
+    color: red;
+    display: inline-block;
+    transform: rotate(360deg);
+
+}
+
+.closeTegI{
+    transition: 2s;
+}
+
