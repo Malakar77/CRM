@@ -182,7 +182,7 @@ class Client extends Model
         $chat_id = env('CHAT_BOT');  // ID группы
 
 
-        $document = new CURLFile(realpath(Storage::path('public/' . $data->name . '.pdf')));
+        $document = new CURLFile(realpath(Storage::path($data->name . '.pdf')));
 
         $post_fields = [
             'chat_id' => $chat_id,
