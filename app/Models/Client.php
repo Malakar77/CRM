@@ -22,11 +22,14 @@ class Client extends Model
      */
     public static function index(): \Illuminate\Support\Collection
     {
-       return DB::table('companies')
-            ->select('companies.id', 'companies.name',
+        return DB::table('companies')
+            ->select(
+                'companies.id',
+                'companies.name',
                 DB::raw("SUM(CASE WHEN check_sale.status != '100'
                                   AND check_sale.status != 'close'
-                                  THEN 1 ELSE 0 END) as count"))
+                                  THEN 1 ELSE 0 END) as count")
+            )
             ->leftJoin('check_sale', 'companies.id', '=', 'check_sale.id_client')
                    ->where([
                        ['companies.user_id', '=', Auth::user()->id],
@@ -60,7 +63,7 @@ class Client extends Model
             )
             ->where('companies.id', $id)
             ->where('companies.status', 'client')
-            ->where(function($query) {
+            ->where(function ($query) {
                 $query->where('info_companies.status', 'add')
                     ->orWhereNull('info_companies.status');
             })
@@ -134,11 +137,10 @@ class Client extends Model
     public static function detailsCheck(int $id): \Illuminate\Support\Collection
     {
         return DB::table('check_position')
-            ->select('name', 'unit', 'count', 'price' ,'result')
+            ->select('name', 'unit', 'count', 'price', 'result')
             ->where('id_check', $id)
             ->whereNotIn('status', ['old', 'close'])
             ->get();
-
     }
 
     /**
@@ -159,7 +161,7 @@ class Client extends Model
                 DB::raw('SUM(CAST(check_position.result AS numeric)) as result')
             )
             ->where('check_sale.id_client', $id)
-            ->where('check_sale.status',  '100')
+            ->where('check_sale.status', '100')
             ->whereNotIn('check_position.status', ['old', 'close'])
             ->groupBy(
                 'check_sale.id',
@@ -220,7 +222,6 @@ class Client extends Model
         } else {
             // Если запрос выполнен успешно
             http_response_code(200); // Отправляем код ответа "Успешно"
-
         }
         curl_close($ch);
     }
@@ -317,10 +318,13 @@ class Client extends Model
     public static function allCompany(): \Illuminate\Support\Collection
     {
         return DB::table('companies')
-        ->select('companies.id', 'companies.name',
+        ->select(
+            'companies.id',
+            'companies.name',
             DB::raw("SUM(CASE WHEN check_sale.status != '100'
                           AND check_sale.status != 'close'
-                          THEN 1 ELSE 0 END) as count"))
+                          THEN 1 ELSE 0 END) as count")
+        )
         ->leftJoin('check_sale', 'companies.id', '=', 'check_sale.id_client')
         ->where([
             ['companies.status', '=', 'client']
@@ -339,7 +343,7 @@ class Client extends Model
     {
         return DB::table('companies')
             ->leftJoin('info_companies', 'companies.id', '=', 'info_companies.id_company')
-            ->select (
+            ->select(
                 'companies.name',
                 'companies.inn',
                 'companies.address',
@@ -348,7 +352,7 @@ class Client extends Model
                 'info_companies.email_contact',
                 'info_companies.sait_company'
             )
-            ->where ('companies.id', '=', $id)
+            ->where('companies.id', '=', $id)
             ->get();
     }
 
@@ -383,7 +387,7 @@ class Client extends Model
             ->where('id_company', $arr['id_company'])
             ->first();
 
-        if(!$search){
+        if (!$search) {
             return  DB::table('info_companies')
                 ->where('id_company', $arr['id_company'])
                 ->insert([
@@ -482,6 +486,4 @@ class Client extends Model
 
         return $query->get();
     }
-
-
 }

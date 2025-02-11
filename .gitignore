@@ -22,3 +22,6 @@ yarn-error.log
 /public/images/Logo.jpg
 /public/images/Печать.png
 /public/images/Подпись.png
+.gitignore
+.gitattributes
+.editorconfig
