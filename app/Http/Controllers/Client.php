@@ -143,6 +143,7 @@ class Client extends Controller
 
         // Проверяем, был ли загружен файл
         if ($request->hasFile('file')) {
+
             $file = $request->file('file');
 
             // Копируем временный файл в хранилище
