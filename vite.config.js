@@ -49,7 +49,7 @@ export default defineConfig({
                 'resources/js/provider.js',
                 'resources/css/setting.css',
                 'resources/js/setting.js',
-
+                'resources/js/filemanager.js',
             ],
             refresh: true,
         }),
