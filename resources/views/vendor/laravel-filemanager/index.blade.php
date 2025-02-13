@@ -22,7 +22,8 @@
   <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/cropper.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/dropzone.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/mime-icons.min.css') }}">
-  <style>{!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/css/lfm.css')) !!}</style>
+  <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/lfm.css') }}">
+{{--  <style>{!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/css/lfm.css')) !!}</style>--}}
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3.0/examples/sidebars/">
 
     <style>
@@ -61,6 +62,7 @@
             <h6 style="border-bottom: 1px solid #f0f1f2; width: 50%;" >Избранное</h6>
             <ul class="list-unstyled fw-normal pb-1 small favorites">
             </ul>
+            <div class="test">dfsfds</div>
         </div>
 
         <div class="mt-auto block_clock">

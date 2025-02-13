@@ -11,7 +11,7 @@ a {
 }
 
 /*#nav, #nav .dropdown-menu, .bg-main {*/
-/*  background-color: #2b3035;*/
+/*  background-color: #333844;*/
 /*}*/
 
 #nav .dropdown-menu > a:hover {
@@ -59,7 +59,7 @@ a {
   #main {
     width: calc(100% - 300px);
     /*margin-left: 1rem;*/
-    padding: 1rem;
+    /*padding: 1rem;*/
   }
 
   .invisible-lg {
@@ -69,7 +69,7 @@ a {
 
 #tree {
   background-color: white;
-  width: 300px;
+
 }
 
 @media screen and (max-width: 991px) {
@@ -103,7 +103,7 @@ a {
 }
 
 .carousel-image {
-  height: 50vh;
+  height: 70vh;
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -171,14 +171,15 @@ a {
 /* Sidebar */
 
 .nav-pills > .nav-item > .nav-link {
-  height: 5rem;
+  height: 2rem;
   display: flex;
   align-items: center;
 }
 
 .nav-pills > .sub-item > .nav-link {
-  height: 3rem;
-  padding-left: 3rem;
+  height: 2rem;
+  padding-left: 2rem;
+    font-size: 13px;
 }
 
 .nav-pills > li.active > a, .nav-pills > li:hover > a {
@@ -222,7 +223,6 @@ a {
 
 .list a {
   border-top: 1px solid rgb(221, 221, 221);
-  padding: 5px;
   margin-top: 0;
   display: flex;
   flex-direction: row;
@@ -240,8 +240,8 @@ a {
 
 .list .square {
   margin-right: 1rem;
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
 }
 
 .square > div {
@@ -284,8 +284,8 @@ a {
 }
 
 .list .item_name {
-  font-size: 1.25rem;
-  padding: 5px 0 5px;
+  font-size: 1rem;
+  padding: 5px 0 0px;
 }
 
 time {
@@ -386,6 +386,11 @@ time {
   content: attr(data-label);
 }
 
+embed{
+    margin: 0 auto !important;
+    display: block !important;
+}
 
-
-
+.test{
+  color: #0b72cf !important;
+}
