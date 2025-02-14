@@ -576,7 +576,7 @@ class UtilityHelper
                 </div>
                 <div class="col_pod_pod"></div>
                 <div class="col_pod_name">
-                    <p>Иванов Иван ИВанович</p>
+                    <p>'.env('DIRECTOR').'</p>
                 </div>
             </div>
             <div class="row_pod">
@@ -586,7 +586,7 @@ class UtilityHelper
                 </div>
                 <div class="col_pod_pod"></div>
                 <div class="col_pod_name">
-                    <p>Иванов Иван ИВанович</p>
+                    <p>'.env('ACCOUTANT').'</p>
                 </div>
             </div>
         </div>

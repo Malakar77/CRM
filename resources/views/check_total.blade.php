@@ -1068,7 +1068,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="invoicePreview__sign-name">
-                                                    <span id="manager">Аксендлер Александр Семенович</span>
+                                                    <span id="manager">{{env('DIRECTOR')}}</span>
                                                 </div>
                                             </div>
                                             <div class="invoicePreview__sign" style="padding-top: 40px; padding-bottom: 0;width: 70%; margin: 0 auto; margin-bottom: 40px;">
@@ -1084,7 +1084,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="invoicePreview__sign-name">
-                                                    <span id="manager">Аксендлер Александр Семенович</span>
+                                                    <span id="manager">{{env('ACCOUTANT')}}</span>
                                                 </div>
                                             </div>
                                             <div class="invoicePreview__comment" style="padding-top: 0">

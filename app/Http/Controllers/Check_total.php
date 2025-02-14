@@ -352,7 +352,7 @@ class Check_total extends Controller
         $spreadsheet->getActiveSheet()->getStyle('D'.$result)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $spreadsheet->getActiveSheet()->getStyle('D'.$result)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
         $spreadsheet->getActiveSheet()->mergeCells('Z'.$result.':AK'.$result);
-        $spreadsheet->getActiveSheet()->setCellValue("Z" . $result, 'Аксендлер А. С.');
+        $spreadsheet->getActiveSheet()->setCellValue("Z" . $result, env('DIRECTOR_ABBR'));
         $spreadsheet->getActiveSheet()->getStyle('Z'.$result)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $spreadsheet->getActiveSheet()->getStyle('Z'.$result)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
         $styleSub = [
@@ -371,7 +371,7 @@ class Check_total extends Controller
         $spreadsheet->getActiveSheet()->getStyle('D'.$result)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $spreadsheet->getActiveSheet()->getStyle('D'.$result)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
         $spreadsheet->getActiveSheet()->mergeCells('Z'.$result.':AK'.$result);
-        $spreadsheet->getActiveSheet()->setCellValue("Z" . $result, 'Аксендлер А. С.');
+        $spreadsheet->getActiveSheet()->setCellValue("Z" . $result, env('ACCOUTANT_ABBR'));
         $spreadsheet->getActiveSheet()->getStyle('Z'.$result)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         $spreadsheet->getActiveSheet()->getStyle('Z'.$result)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
         $spreadsheet->getActiveSheet()->getStyle('O'.$result.':Y'.$result)->applyFromArray($styleSub);
