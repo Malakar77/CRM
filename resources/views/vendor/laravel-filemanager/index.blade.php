@@ -62,7 +62,6 @@
             <h6 style="border-bottom: 1px solid #f0f1f2; width: 50%;" >Избранное</h6>
             <ul class="list-unstyled fw-normal pb-1 small favorites">
             </ul>
-            <div class="test">dfsfds</div>
         </div>
 
         <div class="mt-auto block_clock">
