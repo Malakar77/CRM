@@ -487,6 +487,7 @@
     transition: width 300ms ease-in-out
 }
 
+
 .dropzone .dz-preview.dz-error .dz-error-message {
     display: block
 }
