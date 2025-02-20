@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\LoginOut;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -102,11 +101,6 @@ Route::get('/setting', function () {
     return view('setting');
 })->middleware('auth');
 
-
-//Route::get('/fileManager', function () {
-//    return view('fileManager');
-//})->middleware('auth');
-
 Route::group(['prefix' => 'fileManager', 'middleware' => ['web', 'auth']], function () {
     Lfm::routes();
 });
@@ -114,7 +108,7 @@ Route::group(['prefix' => 'fileManager', 'middleware' => ['web', 'auth']], funct
 /**
  * Роутер запроса регистрации пользователя
  */
-Route::post('/api/send-data', [\App\Http\Controllers\registration::class, 'store']);
+Route::post('/api/send-data', [\App\Http\Controllers\Registration::class, 'store']);
 
 /**
  * Роутер авторизации пользователя
@@ -130,7 +124,6 @@ Route::post('/api/logout', [LoginOut::class, 'logout'])->name('logout');
  * Роутер получения данных о пользователе
  */
 Route::get('/api/user-data', [\App\Http\Controllers\GetByUser::class, 'getUserData'])->middleware('auth');
-
 
 /**
  * Роутер добавления/удаления пользовательского меню

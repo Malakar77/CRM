@@ -2,16 +2,17 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-
-    @vite(['resources/css/reg.css'])
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ env('APP_NAME_COMPANY', 'CRM') }}</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    @vite(['resources/css/reg.css','resources/sass/app.scss','resources/js/app.js',])
+
 </head>
 
 <body><!-- Button trigger modal -->
 <div id="particles-js"></div>
+
 
 <div class="container justify-content-center">
     <div class="row justify-content-center align-items-center">
@@ -31,16 +32,14 @@
                     <input type="password" class="passField" value="" placeholder="Пароль"/>
                 </div>
                 <div class="input-box">
-                    <button class="glow-on-hover" type="button" style="float: left;">Зарегистрироваться</button>
-                    <button type="button" class="btn btn-outline-primary butBack">Назад</button>
-                    <div class="error" style="float: left; width: 50%"><p class="pError"></p></div>
+                    <button class="glow-on-hover" data-action="registration" type="button">Зарегистрироваться</button>
+                    <button type="button" class="btn btn-outline-primary butBack" data-action="back">Назад</button>
+                    <div class="error" style=""><p class="pError"></p></div>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-
 
 @vite([
     'resources/js/common.js',
