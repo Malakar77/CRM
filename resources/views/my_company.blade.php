@@ -14,46 +14,7 @@
 </head>
 <body>
 <main class="d-flex flex-nowrap">
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 15%;">
-        <div  class="container">
-            <div class="row">
-                <div class="col-3 ps-0">
-                    <img src="{{ env('LOGO_CRM', '/icon/logo.svg') }}" alt="logo" style="width: 40px; margin-right: 15px;">
-                </div>
-                <div class="col-9 ps-0 block-name-company">
-                    <span class="name-company">{{ env('APP_NAME_COMPANY', 'CRM') }}</span>
-                </div>
-            </div>
-        </div>
-        <ul class="nav nav-pills flex-column  mt-4">
-            <ul class="list-unstyled ps-0"></ul>
-            <li class=" my-3"></li>
-        </ul>
-        <div class="mb-auto">
-            <h6 style="border-bottom: 1px solid #f0f1f2; width: 50%;" >Избранное</h6>
-            <ul class="list-unstyled fw-normal pb-1 small favorites">
-            </ul>
-        </div>
-        <div class="mt-auto block_clock">
-            <div id="date_block"></div>
-            <div id="clock"></div>
-        </div>
-        <div class="mb-1">
-            <div class="dropdown border-top">
-                <a href="#" class="d-flex align-items-start justify-content-start p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ Auth::user()->link_ava }}" alt="mdo" width="24" height="24" class="rounded-circle me-2">
-                    <strong class="align-middle" style="font-size: 13px; color: #f0f1f2; text-overflow: ellipsis;
-  overflow: hidden;">{{ Auth::user()->name }}</strong>
-                </a>
-                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
-                    <li><a class="dropdown-item" href="/profile">Профиль</a></li>
-                    <li><a class="dropdown-item" href="/setting">Настройки</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item exitUser" href="#">Выход</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    @include('sidebar')
     <div class="b-example-divider b-example-vr"></div>
     <div class="container-block">
         <div class="head">
@@ -65,13 +26,14 @@
                                 <input type="search" id="search" class="form-control searchCompany" placeholder="Search..." aria-label="Search" data-change="search" data-enter="search">
                             </form>
                         </div>
-                        <div class="col-2">
-                            <div class="d-grid gap-2">
-                                <button type="button" class="btn btn-primary add-user" data-click="addCompanyClient">
-                                    <i class="bi bi-person-add" data-click="addCompanyClient"></i>
-                                    Добавить
-                                </button>
-                            </div>
+                        <div class="col-7 col-md-2">
+                            <button type="button" class="btn btn-outline-primary btn-desktop add-user" data-click="addCompanyClient">
+                                <i class="bi bi-plus-circle" data-click="addCompanyClient"></i>
+                                Добавить
+                            </button>
+                            <button type="button" class="btn btn-outline-primary btn-mobile" data-click="addCompanyClient">
+                                <i class="bi bi-plus-circle" data-click="addCompanyClient"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -79,16 +41,17 @@
         </div>
         <div class="body">
             <div class="row justify-content-start">
-                <div class="col-3 mb-3 ps-0 pe-2">
-                    <div class="d-grid gap-3 " style="min-height: 93vh; max-height: 92vh">
+                <div class="col-12 col-md-3 mb-3 ps-0 pe-2">
+                    <div class="d-grid gap-3 company_list" style="min-height: 93vh; max-height: 92vh">
                         <div class="bg-body-tertiary border rounded-3 p-2 allSaleAdmin">
 
                         </div>
                     </div>
                 </div>
-                <div class="col-9  mb-3 " style="height: 90vh; overflow: scroll; overflow-x: hidden ">
+                <div class="col-12 col-md-9  mb-3 check_list" style="height: 90vh; overflow: scroll; overflow-x: hidden ">
                     <div class="mb-3" id="delailsBlock"></div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -209,12 +172,21 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-12">
-                        <div class="mb-3">
-                            <input class="form-control input-File" type="file" id="formFile" placeholder="Выберите фаил ">
-                            <button type="button" class="btn btn-outline-primary" data-click="sentFileExel">Загрузить</button>
-                            <p class="errorFileContract"></p>
+                    <div class="mb-3">
+                        <div class="row">
+                            <!-- Поле для выбора файла -->
+                            <div class="col-12 col-md-8">
+                                <input class="form-control input-File" type="file" id="formFile" placeholder="Выберите файл" style="border: 1px solid green;">
+                            </div>
+
+                            <!-- Кнопка для загрузки -->
+                            <div class="col-12 col-md-4 mt-2 mt-md-0">
+                                <button type="button" class="btn btn-outline-primary w-100" data-click="sentFileExel">Загрузить</button>
+                            </div>
                         </div>
+
+                        <!-- Сообщение об ошибке -->
+                        <p class="errorFileContract text-danger mt-2"></p>
                     </div>
                     <div class="col-12" style="max-height: 80vh; overflow: scroll; overflow-x: auto;">
                         <table class="table table-hover exelTable" >
@@ -364,6 +336,7 @@
 
 @vite([
     'resources/js/script.js',
+    'resources/js/sidebars.js',
     'resources/js/menu.js',
     'resources/js/userMenu.js',
     'resources/js/color-modes.js',

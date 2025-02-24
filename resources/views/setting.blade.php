@@ -24,47 +24,7 @@
 </head>
 <body>
 <main class="d-flex flex-nowrap">
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 15%;">
-        <div  class="container">
-            <div class="row">
-                <div class="col-3 ps-0">
-                    <img src="{{ env('LOGO_CRM', '/icon/logo.svg') }}" alt="logo" style="width: 40px; margin-right: 15px;">
-                </div>
-                <div class="col-9 ps-0 block-name-company">
-                    <span class="name-company">{{ env('APP_NAME_COMPANY', 'CRM') }}</span>
-                </div>
-            </div>
-        </div>
-        <ul class="nav nav-pills flex-column  mt-4">
-            <ul class="list-unstyled ps-0"></ul>
-            <li class=" my-3"></li>
-        </ul>
-        <div class="mb-auto">
-            <h6 style="border-bottom: 1px solid #f0f1f2; width: 50%;" >Избранное</h6>
-
-            <ul class="list-unstyled fw-normal pb-1 small favorites">
-            </ul>
-        </div>
-        <div class="mt-auto block_clock">
-            <div id="date_block"></div>
-            <div id="clock"></div>
-        </div>
-        <div class="mb-1">
-            <div class="dropdown border-top">
-                <a href="#" class="d-flex align-items-start justify-content-start p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ Auth::user()->link_ava }}" alt="mdo" width="24" height="24" class="rounded-circle me-2" >
-                    <strong class="align-middle" style="font-size: 13px; color: #f0f1f2; text-overflow: ellipsis;
-  overflow: hidden;">{{ Auth::user()->name }}</strong>
-                </a>
-                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
-                    <li><a class="dropdown-item" href="/profile">Профиль</a></li>
-                    <li><a class="dropdown-item" href="/setting">Настройки</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item exitUser" href="#">Выход</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    @include('sidebar')
 
     <div class="b-example-divider b-example-vr"></div>
     <div class="container-block">
@@ -325,6 +285,7 @@
 
 @vite([
     'resources/js/script.js',
+    'resources/js/sidebars.js',
     'resources/js/menu.js',
     'resources/js/userMenu.js',
     'resources/js/color-modes.js',

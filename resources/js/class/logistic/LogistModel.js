@@ -89,6 +89,7 @@ export class LogisticModel extends UserService{
                 this.modalHide('formModalAdd');
             })
             .catch(error => {
+                this.deletePreloader();
                 const blockError = document.getElementById('errorAdd');
 
                 // Если есть общая ошибка (например, исключение из модели)
@@ -290,15 +291,15 @@ export class LogisticModel extends UserService{
                     <td>
                         ${data[i].city}
                     </td>
-                    <td>
-                        <button class="btn btn-primary me-md-2 detail" data-action="detail" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1">
-                            <svg xmlns="http://www.w3.org/2000/svg" data-action="detail" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill te detail" viewBox="0 0 16 16">
-                                <path data-action="detail" class="bi bi-person-lines-fill te detail" d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"></path>
-                            </svg>
-                        </button>
-                        <button class="btn btn-primary" type="button" data-action="dovAdd" data-bs-toggle="modal" data-bs-target="#exampleModal2">
-                            <i class="bi bi-person-fill-gear" data-action="dovAdd"></i>
-                        </button>
+                     <td class="desktop-icons" style="text-align: end;" >
+                        <i class="bi bi-list" data-action="detail" style="margin-right: 10px" data-bs-toggle="modal" data-bs-target="#exampleModal1"></i>
+                        <i class="bi bi-person-fill-add" data-action="dovAdd" data-bs-toggle="modal" data-bs-target="#exampleModal2"></i>
+                    </td>
+                    <td class="mobile-buttons">
+                        <span class=" d-flex justify-content-end gap-2">
+                            <button data-action="detail" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal1">Подробнее</button>
+                            <button data-action="dovAdd" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal2">Доверенность</button>
+                        </span>
                     </td>
                 `;
             table.append(tr);
@@ -558,7 +559,7 @@ export class Archive extends UserService{
 
             let date = (data[i].date) ? this.formatDate(data[i].date) : '';
             tr.innerHTML = `
-                <th scope="row" >${i+1}</th>
+                <td scope="row" >${i+1}</td>
                     <td data-action="pageAttorney">${data[i].name.substring(0, 11) + "..." ?? ''}</td>
                     <td data-action="pageAttorney">${date['full'] ?? ''}</td>
                     <td data-action="pageAttorney">

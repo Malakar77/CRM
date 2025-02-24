@@ -656,38 +656,6 @@
         }
 
 
-
-        .loader {
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: rotateZ(45deg);
-            perspective: 1000px;
-            border-radius: 50%;
-            width: 150px;
-            height: 150px;
-            color: #ea0505;
-            z-index: 10000;
-        }
-        .loader:before,
-        .loader:after {
-            content: '';
-            display: block;
-            position: absolute;
-            top: 1px;
-            left: -10px;
-            width: inherit;
-            height: inherit;
-            border-radius: 50%;
-            transform: rotateX(70deg);
-            animation: 1s spin linear infinite;
-        }
-        .loader:after {
-            color: #1de805;
-            transform: rotateY(70deg);
-            animation-delay: .4s;
-        }
-
         @keyframes rotate {
             0% {
                 transform: translate(-50%, -50%) rotateZ(0deg);
@@ -737,6 +705,26 @@
             font-size: small;
         }
 
+
+        @media(max-width: 1080px) {
+            .container-block{
+                margin-top: 50px;
+            }
+            .publicInvoice__content{
+                width: 22em;
+                overflow-y: hidden !important;
+                height: auto !important;
+            }
+            .check_mobile {
+                flex-shrink: 0;
+                width: 100%;
+                max-width: 100%;
+                padding-right: 0;
+                padding-left: 0;
+                margin-top: var(--bs-gutter-y);
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -744,46 +732,7 @@
 
 
 <main class="d-flex flex-nowrap">
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 15%;">
-        <div  class="container">
-            <div class="row">
-                <div class="col-3 ps-0">
-                    <img src="{{ env('LOGO_CRM', '/icon/logo.svg') }}" alt="logo" style="width: 40px; margin-right: 15px;">
-                </div>
-                <div class="col-9 ps-0 block-name-company">
-                    <span class="name-company">{{ env('APP_NAME_COMPANY', 'CRM') }}</span>
-                </div>
-            </div>
-        </div>
-        <ul class="nav nav-pills flex-column  mt-4">
-            <ul class="list-unstyled ps-0"></ul>
-            <li class=" my-3"></li>
-        </ul>
-        <div class="mb-auto">
-            <h6 style="border-bottom: 1px solid #f0f1f2; width: 50%;" >Избранное</h6>
-            <ul class="list-unstyled fw-normal pb-1 small favorites">
-            </ul>
-        </div>
-        <div class="mt-auto block_clock">
-            <div id="date_block"></div>
-            <div id="clock"></div>
-        </div>
-        <div class="mb-1">
-            <div class="dropdown border-top">
-                <a href="#" class="d-flex align-items-start justify-content-start p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ Auth::user()->link_ava }}" alt="mdo" width="24" height="24" class="rounded-circle me-2">
-                    <strong class="align-middle" style="font-size: 13px; color: #f0f1f2; text-overflow: ellipsis;
-  overflow: hidden;">{{ Auth::user()->name }}</strong>
-                </a>
-                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
-                    <li><a class="dropdown-item" href="/profile">Профиль</a></li>
-                    <li><a class="dropdown-item" href="/setting">Настройки</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item exitUser" href="#">Выход</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    @include('sidebar')
     <div class="b-example-divider b-example-vr"></div>
     <div class="container-block">
         <div class="head">
@@ -827,7 +776,7 @@
             <div class="row bg-body-tertiary border rounded-3 p-2 mb-3">
                 <div class="body">
                     <div class="row">
-                        <div class="container " >
+                        <div class="container check_mobile" >
                             <div class="d-grid gap-3" style="">
                                 <div class="publicInvoice ">
 
@@ -1210,6 +1159,7 @@
 
 @vite([
     'resources/js/script.js',
+    'resources/js/sidebars.js',
     'resources/js/menu.js',
     'resources/js/userMenu.js',
     'resources/js/color-modes.js',

@@ -23,8 +23,6 @@
     {
         "title": "Продажи",
         "items": [
-        
-            { "title": "Продажи", "href": "my_sale.php", "user": 0 },
             { "title": "Клиенты", "href": "/my_company", "user": 0 },
             { "title": "Компании Админ", "href": "/company", "user": 1 },
             { "title": "Холодные звонки", "href": "/calls", "user": 1 }

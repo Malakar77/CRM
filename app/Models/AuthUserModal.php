@@ -23,16 +23,18 @@ class AuthUserModal extends Model
      * @param array $data
      * @return mixed
      */
-    public static function SearchUser(array $data): mixed
+    public static function searchUser(array $data): mixed
     {
-        return self::where('login', UtilityHelper::get_variable ($data['login']))->first();
+        return self::where('login', UtilityHelper::get_variable($data['login']))->first();
     }
 
 
     /**
      * Метод поиска компании
+     * @param string $data
+     * @return mixed
      */
-    public static function SearchCompany(string $data)
+    public static function searchCompany(string $data): mixed
     {
         return DB::table('companyCrm')
             ->where('innCompany', $data)->first();
@@ -51,10 +53,7 @@ class AuthUserModal extends Model
         ]);
 
         return response()->json([
-            'errors' => [
-                'login' => [$message]
-            ]
+            'error' => [$message]
         ], $status);
     }
-
 }

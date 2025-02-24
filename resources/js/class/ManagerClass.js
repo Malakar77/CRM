@@ -226,9 +226,15 @@ export class ManagerModel extends UserService{
             <td data-action="activeTd">${data[i].name_manager}</td>
             <td data-action="activeTd"><a href="phone:${data[i].phone}" >${data[i].phone}</a></td>
             <td data-action="activeTd"><a href="mailto:${data[i].email}">${data[i].email}</a></td>
-            <td data-action="activeTd">
-                <i class="bi bi-pencil" data-action="edit"></i>
+            <td class="desktop-icons" style="text-align: end;" data-action="activeTd">
+                <i class="bi bi-pencil" data-action="edit" style="margin-right: 10px"></i>
                 <i class="bi bi-trash" data-action="trash"></i>
+            </td>
+            <td class="mobile-buttons">
+                <span class=" d-flex justify-content-end gap-2">
+                    <button data-action="edit" class="btn btn-primary btn-sm">Редактировать</button>
+                    <button data-action="trash" class="btn btn-danger btn-sm">Удалить</button>
+                </span>
             </td>
             `;
             tbody.append(tr);

@@ -45,7 +45,7 @@ export class Service extends UserService{
             <div class="row bg-body-tertiary border rounded-3 p-2">
                             <div class="container infoBlock" data-id="${data[0].id}">
                                 <div class="row">
-                                    <div class="col-6 ps-1">
+                                    <div class="col-12 col-md-6 ps-1">
                                         <div class="row mb-1 mt-2"> <!-- Определяем внутренний блок как строку -->
                                             <div class="col-3 infoTitle">ИНН:</div>
                                             <div class="col-9 infoDis border innInfoBlock" style="min-height: 30px">${data[0].inn}</div>
@@ -75,7 +75,7 @@ export class Service extends UserService{
                                             <div class="col-9 infoDis border site" style="min-height: 30px">${data[0].name}</div>
                                         </div>
                                     </div>
-                                    <div class="col-6 pe-0">
+                                    <div class="col-12 col-md-6 pe-0">
                                         <div class="mb-2 mt-2" style="position: relative">
                                             <label for="exampleFormControlTextarea1" class="form-label">Комментарий</label>
                                             <textarea class="form-control mb-2 commentCompany" id="commentCompany" style="height: 190px; resize: none;" data-input="textarea" >${data[0].info_company}</textarea>

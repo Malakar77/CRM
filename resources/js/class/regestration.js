@@ -1,5 +1,5 @@
 import {UserService} from "../script.js";
-
+import {Validate} from "./helper/Validate.js";
 export class Service extends UserService {
 
     /**
@@ -8,19 +8,10 @@ export class Service extends UserService {
      */
     static validateForm()
     {
-        const fields = this.getFormFields();
-        let hasError = false;
 
-        for (const key in fields) {
-            if (fields[key].value.trim() === '') {
-                fields[key].classList.add('error_input');
-                hasError = true;
-            } else {
-                fields[key].classList.remove('error_input');
-            }
-        }
+        const formFields = this.getFormFields();
 
-        if (hasError) {
+        if (!Validate.validateForm(formFields)) {
             this.showErrorMessage("Проверьте введенные вами данные");
             return false;
         }
@@ -56,6 +47,7 @@ export class Service extends UserService {
             password_confirmation: fields.password_confirmation.value.trim(),
         };
     }
+
 
     /**
      * Отправка данных на сервер

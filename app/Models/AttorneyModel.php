@@ -1178,7 +1178,7 @@ class AttorneyModel extends Model
                     <span>Руководитель</span>
                     <span></span>
                     <span></span>
-                    <span>Иванов И. И.</span>
+                    <span>Аксендлер А.С.</span>
                     <span></span>
                 </div>
             </div>
@@ -1196,7 +1196,7 @@ class AttorneyModel extends Model
                     <span>Главный бухгалтер</span>
                     <span></span>
                     <span></span>
-                    <span>Иванов И. И.</span>
+                    <span>Аксендлер А.С.</span>
                     <span></span>
                 </div>
             </div>

@@ -265,3 +265,44 @@ input[type="checkbox"]:hover{
     color: #FFFFFF;
 }
 
+.btn-mobile{
+    display: none !important;
+}
+.btn-desktop{
+    display: block;
+}
+
+#search{
+    width: 27rem;
+}
+
+@media (max-width: 1080px) {
+    .container-block{
+        margin-top: 50px !important;
+    }
+    .sadeBar{
+        z-index: 1021;
+    }
+    .btn-desktop{
+        display: none;
+    }
+    .btn-mobile{
+        display: block !important;
+    }
+
+    #search{
+        width: 16rem !important;
+    }
+    .company_list{
+        min-height: 47vh !important;
+        max-height: 47vh !important;
+    }
+    .check_list{
+        overflow: hidden !important;
+        height: auto !important;
+    }
+    .input-File {
+        width: 100%;
+    }
+}
+

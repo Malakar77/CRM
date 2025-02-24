@@ -11,7 +11,7 @@ main {
   height: 100vh;
   height: -webkit-fill-available;
   max-height: 100vh;
-  overflow-x: auto;
+  overflow-x: auto !important;
   overflow-y: hidden;
 }
 
@@ -183,7 +183,7 @@ td{
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: rotateZ(45deg);
+    transform: translate(-50%, -50%) rotateZ(45deg);
     perspective: 1000px;
     border-radius: 50%;
     width: 100px;
@@ -254,6 +254,13 @@ td{
     }
     87% {
         box-shadow: .2em -.2em 0 0 currentcolor;
+    }
+}
+
+@media (max-width: 768px) {
+    .loader {
+        left: 50%;
+        transform: translate(-50%, -50%) rotateZ(45deg);
     }
 }
 
@@ -330,4 +337,153 @@ td{
 
 .bg-light{
     background-color: #333844 !important;
+}
+.sadeBar{
+    display: none;
+}
+/* Показываем список при добавлении класса .show */
+.show {
+    display: block !important;
+}
+
+
+@media (max-width: 1080px) {
+
+    /* Уменьшаем размер заголовка */
+    .fc-header-toolbar .fc-toolbar-title {
+        font-size: 1.2rem; /* Уменьшаем размер шрифта */
+        white-space: nowrap; /* Запрещаем перенос текста */
+        overflow: hidden; /* Скрываем текст, который не помещается */
+        text-overflow: ellipsis; /* Добавляем многоточие, если текст обрезан */
+    }
+
+    /* Уменьшаем размер кнопок */
+    .fc-header-toolbar .fc-button {
+        padding: 0.3rem 0.5rem; /* Уменьшаем отступы внутри кнопок */
+        font-size: 0.8rem; /* Уменьшаем размер шрифта кнопок */
+    }
+
+    /* Скрываем текст в кнопках и оставляем только иконки */
+    .fc-header-toolbar .fc-button-group .fc-button {
+        padding: 0.3rem; /* Уменьшаем отступы */
+    }
+
+    .fc-header-toolbar .fc-button-group .fc-button span {
+        margin: 0; /* Убираем отступы у иконок */
+    }
+
+    .fc-header-toolbar .fc-button-group .fc-button:not(.fc-prev-button, .fc-next-button) {
+        display: none; /* Скрываем кнопки "Месяц", "Неделя", "День" */
+    }
+
+    .fc-today-button{
+        display: none !important;
+    }
+    /* Уменьшаем отступы между элементами шапки */
+    .fc-header-toolbar .fc-toolbar-chunk {
+        margin: 0 0.2rem; /* Уменьшаем отступы между блоками */
+    }
+
+    /* Уменьшаем размер кнопок "Сегодня", "Назад", "Вперед" */
+    .fc-header-toolbar ,
+    .fc-header-toolbar .fc-prev-button,
+    .fc-header-toolbar .fc-next-button {
+        padding: 0.3rem; /* Уменьшаем отступы */
+    }
+
+    /* Скрываем текст "today" в кнопке "Сегодня" */
+    .fc-header-toolbar .fc-today-button {
+        font-size: 0; /* Скрываем текст */
+    }
+
+    .fc-header-toolbar .fc-today-button::after {
+        content: "Сегодня"; /* Добавляем текст "Сегодня" */
+        font-size: 0.8rem; /* Устанавливаем размер шрифта */
+    }
+
+    /* Уменьшаем размер иконок в кнопках "Назад" и "Вперед" */
+    .fc-header-toolbar .fc-icon {
+        font-size: 0.8rem; /* Уменьшаем размер иконок */
+    }
+
+
+    main {
+        position: relative;
+        height: 100vh;
+        height: -webkit-fill-available;
+        max-height: 100vh;
+        overflow: scroll !important;
+        overflow-y: hidden;
+    }
+
+    .sadeBars{
+        display: none !important;
+    }
+
+    .sadeBar {
+        display: block !important;
+        width: 100%;
+        position: fixed; /* Меняем absolute на fixed */
+        top: 0;
+        height: 50px;
+        background: #1c4f82;
+        -webkit-box-shadow: 1px 9px 8px 0px rgba(34, 60, 80, 0.2);
+        -moz-box-shadow: 1px 9px 8px 0px rgba(34, 60, 80, 0.2);
+        box-shadow: 1px 9px 8px 0px rgba(34, 60, 80, 0.2);
+        z-index: 1000;
+    }
+
+    .main_link{
+        color: #FFFFFF;
+    }
+
+    .bi-filter-square {
+        font-size: 30px;
+        padding: 5px;
+        cursor: pointer; /* Добавляем курсор, чтобы показать, что элемент кликабельный */
+    }
+
+    #filterIcon{
+        font-size: 25px;
+        display: block;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        align-content: center;
+    }
+
+    /* Стили для выпадающего списка */
+    .dropdown-content {
+        display: none; /* Скрываем список по умолчанию */
+        position: absolute;
+        top: 50px; /* Располагаем список под .sadeBar */
+        left: 0;
+        background-color: #212529;
+        min-width: 100%;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        text-decoration: none;
+        display: block;
+    }
+
+    .bi-star, .bi-star-fill{
+        margin-right: 25px;
+    }
+
+    .dropdown-content a:hover {
+        background: #102487; /* Цвет фона при наведении */
+        color: white; /* Цвет текста при наведении */
+    }
+
+    .b-example-divider{
+        display: none;
+    }
+
+    .userMenu{
+        border: 0;
+        opacity: 1 !important;
+    }
 }

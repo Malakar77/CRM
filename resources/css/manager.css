@@ -230,3 +230,109 @@ table > tbody > tr >td:nth-child(5) >i{
 .activeTr > td > i{
     color: #faf8f8;
 }
+
+
+
+.desktop-icons {
+    display: block;
+}
+.mobile-buttons {
+    display: none !important;
+}
+.btn-mobile{
+    display: none !important;
+}
+.btn-desktop{
+    display: block;
+}
+@media(max-width: 1080px) {
+
+    .btn-desktop{
+        display: none;
+    }
+    .btn-mobile{
+        display: block !important;
+    }
+
+    .container-block{
+        margin-top: 50px;
+    }
+
+    .search{
+        width: 16rem;
+    }
+
+    /* Скрываем заголовки таблицы*/
+    table thead {
+        left: -9999px;
+        position: absolute;
+        visibility: hidden;
+    }
+    table tr {
+        border-bottom: 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+    }
+    table td {
+        border: 1px solid;
+        margin: 0 -1px -1px 0; /* объединяем границы ячеек */
+        width: 50%;
+        box-sizing: border-box;
+    }
+    table td:last-child {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .desktop-icons {
+        display: none;
+    }
+    .mobile-buttons {
+        display: block !important;
+    }
+    table td:last-child {
+        flex-basis: 100%;
+        border: 0;
+        margin-top: 1px;
+    }
+    .table_attorney thead {
+        left: auto;
+        position: static;
+        visibility: visible;
+    }
+    .table_attorney tr {
+        border-bottom: initial;
+        display: table-row;
+        flex-direction: initial;
+        flex-wrap: initial;
+        margin-bottom: initial;
+    }
+    .table_attorney td {
+        border: initial;
+        margin: initial;
+        width: initial;
+        box-sizing: initial;
+    }
+    .table_attorney td:last-child {
+        width: initial;
+        box-sizing: initial;
+    }
+}
+
+@media (max-width: 390px) {
+    .search {
+        width: 14rem;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    #catalog{
+        height: auto !important;
+        max-height: 40vh;
+    }
+    .search {
+        width: 15rem;
+    }
+}

@@ -15,14 +15,19 @@
 }
 .todo_company{
     font-size: 12px;
+    float: left;
 }
+.time{
+    float: left;
+    text-align: right;
+    width: 41%;
+}
+
 .todo{
-    padding: 0 10px 10px 10px;
-    border-radius: 2px;
-    white-space: normal;
+    padding-left: 0.7em;
 }
+
 .dis_block{
-    
     max-height: 150px;
     border-radius: 5px;
     border-bottom: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
@@ -52,3 +57,39 @@ a {
     color: rgb(255, 255, 255);
     text-decoration: underline;
 }
+
+
+.header_todo{
+    margin: 15px;
+}
+
+
+
+@media (max-width: 768px) {
+
+    #myIframe{
+        padding: 0.5em ;
+    }
+    .calculator{
+        width: 100%;
+    }
+
+    .todo{
+        margin-top: 0.5rem !important
+    }
+
+    .dis_block{
+        width: 98%;
+        margin: 12px;
+    }
+
+    .body{
+        margin-top: 4em !important;
+    }
+
+}
+
+
+
+
+

@@ -277,26 +277,26 @@ export class Service extends UserService{
         const formattedDate = date.toLocaleString('ru-RU', options).replace(',', ' в');
 
             let item = document.createElement('div');
-        item.classList = "mt-1 todo_elem dis_block";
+        item.classList = "m-1 todo_elem dis_block";
         item.dataset.id = data.id;
         item.style.borderLeft = '6px Solid' + data.color;
             // item.classList = "row ps-2 pe-1 mt-1 mb-1 rounded-3 todo_elem";
             item.innerHTML = `
 
-                        <div class="row title_todo_position mt-1">
+                        <div class=" title_todo_position m-1">
                             <div class="col-7 todo_company">Задача</div>
                             <div class="col time">
                                 ${formattedDate}
                             </div>
                         </div>
-                        <div class="row bg-body-tertiary discript">
+                        <div class=" bg-body-tertiary discript">
                             <div class="col-12 todo">
                                 ${data.title}
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="">
                             <div class="col-12 d-grid gap-2 d-md-block mb-2">
-                                <div class="col">
+                                <div class="col ms-2">
                                     <button type="button" class="btn btn-primary btn-sm" data-action="delete">Закрыть</button>
                                     <button type="button" class="btn btn-secondary btn-sm" data-action="delayTodo">Отложить</button>
                                 </div>
@@ -528,7 +528,7 @@ export class Service extends UserService{
 
         for (let i = 0; i<data.length; i++) {
             let item = document.createElement('div');
-            item.classList = "mt-1 todo_elem dis_block";
+            item.classList = "m-1 todo_elem dis_block";
             item.dataset.id = data[i].id;
             item.style.borderLeft = '6px Solid' + data[i].important;
             name = data[i].name;
@@ -536,20 +536,20 @@ export class Service extends UserService{
                 name = 'Задача';
             }
             item.innerHTML = `
-                                <div class="row title_todo_position mt-1">
+                                <div class="title_todo_position m-1">
                                     <div class="col-7 todo_company">${name}</div>
                                     <div class="col time">
                                         ${this.#formatDateTime(data[i].start)}
                                     </div>
                                 </div>
-                                <div class="row bg-body-tertiary discript">
+                                <div class=" bg-body-tertiary discript">
                                     <div class="col-12 todo">
                                         ${data[i].title}
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="">
                                     <div class="col-12 d-grid gap-2 d-md-block mb-2">
-                                        <div class="col">
+                                        <div class="col ms-2">
                                             <button type="button" class="btn btn-primary btn-sm" data-action="delete">Закрыть</button>
                                             <button type="button" class="btn btn-secondary btn-sm" data-action="delayTodo">Отложить</button>
                                         </div>

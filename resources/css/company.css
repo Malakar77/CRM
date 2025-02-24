@@ -228,7 +228,21 @@ thead{
 .active td{
     background-color: #0a5cae;
 }
+@media(max-width: 1080px) {
 
+    .container-block{
+        margin-top: 50px;
+    }
+
+    .discharge_list{
+        height: 30vh !important;
+    }
+    .discharge_list > .d-grid{
+        height: 30vh !important;
+        overflow: scroll;
+    }
+
+}
 
 
 

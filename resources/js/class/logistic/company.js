@@ -52,8 +52,14 @@ export class Company extends UserService{
 
         fetch(url, options)
             .then(response => response.json())
-            .then(result => this.#printBank(result))
-            .catch(error => console.log("error", error));
+            .then(result => {
+                this.deletePreloader();
+                this.#printBank(result)
+            })
+            .catch(error => {
+                this.deletePreloader();
+                console.log("error", error)
+            });
 
     }
 

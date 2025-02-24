@@ -1,0 +1,8 @@
+.error_input{
+    border: 1px solid red;
+    color: red;
+}
+
+.sent::before {
+    opacity: 1;
+}

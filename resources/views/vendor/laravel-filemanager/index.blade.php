@@ -14,7 +14,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>{{ env('APP_NAME_COMPANY', 'CRM') }}</title>
     @vite(['resources/sass/app.scss'])
-    @vite(['resources/css/sidebars.css', 'resources/js/custom.js'])
+    @vite(['resources/css/sidebars.css', 'resources/js/custom.js', 'resources/css/filemanager.css'])
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.5.0/css/all.min.css">
@@ -36,54 +36,18 @@
         #to-previous{
             font-size: 13px !important;
         }
+        @media (max-width: 1080px) {
+            .sadeBars {
+                display: none !important;
+            }
+        }
     </style>
   {{-- Use the line below instead of the above if you need to cache the css. --}}
   {{-- <link rel="stylesheet" href="{{ asset('/vendor/laravel-filemanager/css/lfm.css') }}"> --}}
 </head>
 <body>
 <main class="d-flex flex-nowrap">
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 15%;">
-        <div  class="container">
-            <div class="row">
-                <div class="col-3 ps-0">
-                    <img src="{{ env('LOGO_CRM', 'icon/logo.svg') }}" alt="logo" style="width: 40px; margin-right: 15px;">
-                </div>
-                <div class="col-9 ps-0 block-name-company">
-                    <span class="name-company">{{ env('APP_NAME_COMPANY', 'CRM') }}</span>
-                </div>
-            </div>
-        </div>
-        <ul class="nav nav-pills flex-column  mt-4">
-            <ul class="list-unstyled ps-0"></ul>
-            <li class=" my-3"></li>
-
-        </ul>
-        <div class="mb-auto">
-            <h6 style="border-bottom: 1px solid #f0f1f2; width: 50%;" >Избранное</h6>
-            <ul class="list-unstyled fw-normal pb-1 small favorites">
-            </ul>
-        </div>
-
-        <div class="mt-auto block_clock">
-            <div id="date_block"></div>
-            <div id="clock"></div>
-        </div>
-        <div class="mb-1">
-            <div class="dropdown border-top">
-                <a href="#" class="d-flex align-items-start justify-content-start p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ Auth::user()->link_ava }}" alt="mdo" width="24" height="24" class="rounded-circle me-2">
-                    <strong class="align-middle" style="font-size: 13px; color: #f0f1f2; text-overflow: ellipsis;
-  overflow: hidden;">{{ Auth::user()->name }}</strong>
-                </a>
-                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
-                    <li><a class="dropdown-item" href="/profile">Профиль</a></li>
-                    <li><a class="dropdown-item" href="/setting">Настройки</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item exitUser" href="#">Выход</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    @include('sidebar')
 
     <div class="b-example-divider b-example-vr"></div>
     <div class="container-block">
@@ -148,10 +112,10 @@
 
 
             <div class="row">
-                <div class="col-3">
+                <div class="col-12 col-md-3">
                     <div id="tree"></div>
                 </div>
-                <div class="col-9">
+                <div class="col-12 col-md-9">
 
                     <div id="main" class="w-100">
 
@@ -295,6 +259,7 @@
 
 @vite([
     'resources/js/script.js',
+    'resources/js/sidebars.js',
     'resources/js/menu.js',
     'resources/js/userMenu.js',
     'resources/js/color-modes.js',

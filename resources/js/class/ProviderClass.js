@@ -135,10 +135,17 @@ export class ViewProvider extends UserService {
                 <td>${provider[i].phone}</td>
                 <td><a href="https://${provider[i].link}" rel="noopener noreferrer" target="_blank">${provider[i].link}</a></td>
                 <td>${provider[i].city}</td>
-                <td style="text-align: end;">
+                <td class="desktop-icons" style="text-align: end;">
                         <i class="bi bi-pencil" data-action="getProvider" style="margin-right: 10px"></i>
                         <i class="bi bi-trash" data-action="trash"></i>
+
                     </td>
+                <td class="mobile-buttons">
+                    <span class="mobile-buttons-span d-flex justify-content-end gap-2">
+                        <button data-action="getProvider" class="btn btn-primary btn-sm">Редактировать</button>
+                        <button data-action="trash" class="btn btn-danger btn-sm">Удалить</button>
+                    </span>
+                </td>
             `;
             table.append(tr);
         }
@@ -260,9 +267,15 @@ export class ViewProvider extends UserService {
                     <td>${data.phone}</td>
                     <td>${data.website}</td>
                     <td>${data.city}</td>
-                    <td style="text-align: end;">
+                    <td class="desktop-icons" style="text-align: end;">
                         <i class="bi bi-pencil" data-action="getProvider" style="margin-right: 10px"></i>
                         <i class="bi bi-trash" data-action="trash"></i>
+                    </td>
+                    <td class="mobile-buttons">
+                        <span class=" d-flex justify-content-end gap-2">
+                            <button data-action="getProvider" class="btn btn-primary btn-sm">Редактировать</button>
+                            <button data-action="trash" class="btn btn-danger btn-sm">Удалить</button>
+                        </span>
                     </td>
                     `;
                     table.append(provider);

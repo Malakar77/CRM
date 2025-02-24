@@ -21,7 +21,6 @@ use Webklex\PHPIMAP\ClientManager;
 use Swift_Message;
 use Swift_Attachment;
 
-
 class Check_total extends Model
 {
     use HasFactory;
@@ -33,14 +32,6 @@ class Check_total extends Model
      */
     public static function headers(int $id): ?object
     {
-
-//        dd(DB::table('check_sale')
-//            ->join('companies', 'companies.id', '=', 'check_sale.id_client')
-//            ->join('company', 'company.id', '=', 'check_sale.id_company')
-//            ->join('info_companies', 'info_companies.id_company', '=', 'companies.id')
-//            ->where('check_sale.id', '=', $id)
-//            ->first()
-//        );
         return DB::table('check_sale')
             ->join('companies', 'companies.id', '=', 'check_sale.id_client')
             ->join('company', 'company.id', '=', 'check_sale.id_company')
@@ -169,7 +160,7 @@ class Check_total extends Model
         $totalSumNds = 0; // Сумма всех sum_nds, где nds не равен 0
         $totalResult = 0; // Сумма всех result
 
-        for ($i = 0; $i < count($position_bd); $i++) {
+        for ($i = 0, $iMax = count($position_bd); $i < $iMax; $i++) {
             $position[$i] = []; // Инициализируем как массив
             $position[$i]['i'] = $i + 1; // Устанавливаем порядковый номер
             $position[$i]['name'] = $position_bd[$i]->name; // Название позиции
@@ -304,7 +295,13 @@ class Check_total extends Model
 
                 $client->connect();
 
+                if (!$client->getFolder('Sent')) {
+                    // Если папка "Sent" не существует, создаем её
+                    $client->createFolder('Sent');
+                }
+
                 $sentFolder = $client->getFolder('Sent');
+
                 // Формирование полного сообщения
                 $swiftMessage = new Swift_Message();
                 $swiftMessage->setFrom([Auth::user()->login => Auth::user()->name]);
@@ -330,72 +327,4 @@ class Check_total extends Model
             return json_encode($mail->ErrorInfo);
         }
     }
-
-
-//    public static function sentEmail($email)
-//    {
-//        try {
-//            // Подготовка данных для письма
-//            $emailData = [
-//                'subject' => $email['subject'],
-//                'textEmail' => $email['textEmail'],
-//                'signature' => Auth::user()->signature,
-//                'file' => $email['file'],
-//                'check' => $email['check'],
-//            ];
-//
-//            // Отправка письма
-//            Mail::to($email['emailCompany'])
-//                ->bcc(Auth::user()->login)
-//                ->send(new SendEmail($emailData));
-//
-//            SentEmail::create([
-//                'to' => $email['emailCompany'],
-//                'bcc' => Auth::user()->login,
-//                'subject' => $emailData['subject'],
-//                'body' => $emailData['textEmail'],
-//                'attachment' => $emailData['file'] ? json_encode($emailData['check']) : null,
-//                'user_id' => Auth::id(),
-//            ]);
-//
-//            $cm = new ClientManager();
-//            $client = $cm->make([
-//                'host' => env('IMAP_HOST'),
-//                'port' => env('IMAP_PORT'),
-//                'encryption' => env('IMAP_ENCRYPTION'),
-//                'validate_cert' => false,
-////                'username' => env('MAIL_USERNAME', Auth::user()->login),
-////                'password' => env('MAIL_PASSWORD', Auth::user()->pass_email),
-//                'username' => Auth::user()->login,
-//                'password' => Auth::user()->pass_email,
-//                'protocol' => 'imap'
-//            ]);
-//
-//            $client->connect();
-//
-//            $sentFolder = $client->getFolder('Sent');
-//            // Формирование полного сообщения
-//            $swiftMessage = new Swift_Message();
-//            $swiftMessage->setFrom([Auth::user()->login => Auth::user()->name]);
-//            $swiftMessage->setTo([$email['emailCompany']]);
-//            $swiftMessage->setSubject($emailData['subject']);
-//            $swiftMessage->setBody(nl2br($emailData['textEmail']) . "<br><br>" . nl2br($emailData['signature']), 'text/html');
-//
-//            $fileCheck = UtilityHelper::getFilePDF($email['check']);
-//            $filePath = preg_replace('/[\/:*?"<>|]/', '_', $fileCheck['name'] . '.pdf');
-//
-//            // Прикрепление файла
-//            $attachment = Swift_Attachment::fromPath(Storage::path($filePath));
-//            $swiftMessage->attach($attachment);
-//
-//            // Получение MIME-сообщения
-//            $mimeMessage = $swiftMessage->toString();
-//
-//            // Сохранение письма в папке "Отправленные"
-//            $sentFolder->appendMessage($mimeMessage);
-//            return true;
-//        } catch (\Exception $e) {
-//            return json_encode($e->getMessage());
-//        }
-//    }
 }

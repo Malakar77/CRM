@@ -1,0 +1,60 @@
+.desktop-icons {
+    display: block;
+}
+.mobile-buttons {
+    display: none !important;
+}
+
+@media(max-width: 1080px) {
+    .container-block{
+        margin-top: 50px;
+    }
+
+    .search{
+        width: 18rem;
+    }
+    #catalog{
+        height: auto !important;
+        max-height: 78vh;
+    }
+
+
+    .desktop-icons {
+        display: none;
+    }
+    .mobile-buttons {
+        display: block !important;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .search {
+        width: 15rem;
+    }
+    #company{
+        width: 18em;
+    }
+    .head_check{
+        padding-left: 0;
+        margin-bottom: .25rem !important;
+    }
+    span{
+        width: 30%;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    #catalog{
+        height: auto !important;
+        max-height: 40vh;
+    }
+    .search {
+        width: 18rem;
+    }
+
+
+}
+
+
+

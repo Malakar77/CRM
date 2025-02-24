@@ -1,0 +1,9 @@
+
+@media (max-width: 1080px) {
+    .container-block{
+        margin-top: 50px !important;
+    }
+    .sadeBar{
+        z-index: 1021;
+    }
+}

@@ -1,0 +1,96 @@
+.desktop-icons {
+    display: block;
+}
+.mobile-buttons {
+    display: none !important;
+}
+
+@media(max-width: 1080px) {
+    .container-block{
+        margin-top: 50px;
+    }
+
+    .search{
+        width: 18rem;
+    }
+    #catalog{
+        height: auto !important;
+        max-height: 78vh;
+    }
+    .table_content{
+        margin-top: 1em;
+    }
+    /* Скрываем заголовки таблицы*/
+    table thead {
+        left: -9999px;
+        position: absolute;
+        visibility: hidden;
+    }
+    table tr {
+        border-bottom: 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+    }
+    table td {
+        border: 1px solid;
+        margin: 0 -1px -1px 0; /* объединяем границы ячеек */
+        width: 50%;
+        box-sizing: border-box;
+    }
+    table td:last-child {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .desktop-icons {
+        display: none;
+    }
+    .mobile-buttons {
+        display: block !important;
+    }
+    table td:last-child {
+        flex-basis: 100%;
+        border: 0;
+        margin-top: 1px;
+    }
+    .table_attorney thead {
+        left: auto;
+        position: static;
+        visibility: visible;
+    }
+    .table_attorney tr {
+        border-bottom: initial;
+        display: table-row;
+        flex-direction: initial;
+        flex-wrap: initial;
+        margin-bottom: initial;
+    }
+    .table_attorney td {
+        border: initial;
+        margin: initial;
+        width: initial;
+        box-sizing: initial;
+    }
+    .table_attorney td:last-child {
+        width: initial;
+        box-sizing: initial;
+    }
+}
+
+@media (max-width: 768px) {
+    .search {
+        width: 15rem;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    #catalog{
+        height: auto !important;
+        max-height: 40vh;
+    }
+    .search {
+        width: 18rem;
+    }
+}
