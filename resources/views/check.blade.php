@@ -664,6 +664,7 @@
 
 @vite([
     'resources/js/script.js',
+    'resources/js/sidebars.js',
     'resources/js/menu.js',
     'resources/js/userMenu.js',
     'resources/js/color-modes.js',
