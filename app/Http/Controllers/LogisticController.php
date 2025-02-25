@@ -52,11 +52,16 @@ class LogisticController extends Controller
             // Преобразование данных в объект для передачи в модель
             $data = (object) $validatedData;
 
-            // Добавление логиста через модель
-            LogisticModel::addLogist($data);
+            $result['name'] = $data->name;
+            $result['surname'] = $data->surname;
+            $result['patronymic'] = $data->patronymic;
+            $result['phone'] = $data->phone;
+            $result['transport'] = $data->transport;
+            $result['city'] = $data->city;
+            $result['id'] = LogisticModel::addLogist($data);
 
             // Возвращаем успешный ответ
-            return response()->json($validatedData);
+            return response()->json($result);
 
         } catch (\Illuminate\Validation\ValidationException $e) {
             // Возвращаем ошибки валидации

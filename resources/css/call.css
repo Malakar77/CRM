@@ -145,5 +145,37 @@ input:focus{
     float: right;
 }
 
+@media(max-width: 1080px) {
+
+    #search{
+        width: 21rem;
+    }
+    .container-block{
+        margin-top: 50px;
+    }
+    .company_list{
+        padding: 0 !important;
+    }
+    .company_list .bg-body-tertiary{
+        height: 50vh !important;
+        overflow: scroll;
+    }
+    .discharge_list{
+        height: 30vh !important;
+        padding: 0 !important;
+    }
+    .discharge_list > .d-grid{
+        height: 30vh !important;
+        overflow: scroll;
+    }
+
+    .blockDatails  .container{
+        padding: 0 !important;
+    }
+
+    .result-blocks{
+        overflow: hidden !important;
+    }
+}
 
 

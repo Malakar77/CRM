@@ -97,7 +97,7 @@ class clickController{
     addCompanyButton(event){
         this.service.validateForm('formAdd', '.AddLogisticSubmit');
         this.logistic.formAdd();
-        this.company.addCompany();
+        // this.company.addCompany();
     }
 
     /**

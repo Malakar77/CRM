@@ -2,20 +2,21 @@ import { UserService } from "../../script.js";
 
 export class LogisticModel extends UserService{
 
-    static addDov(){
+    static addDov()
+    {
         const form = document.getElementById('dov');
 
         let formData = new FormData(form);
 
         let formAddDover = {};
-        formData.forEach(function(value, key){
+        formData.forEach(function (value, key) {
             formAddDover[key] = value;
         });
 
 
-        if(formAddDover.nameLogist	!== ''){
+        if (formAddDover.nameLogist  !== '') {
             formAddDover['idLogist'] = form.dataset.id;
-        }else{
+        } else {
             formAddDover['idLogist'] = null;
         }
 
@@ -37,23 +38,24 @@ export class LogisticModel extends UserService{
                 this.modalHide('exampleModal2');
                 window.location.href = `/attorney?id=${data.attorney_id}`;
             }).catch(error => {
-            this.deletePreloader(); // Вызов метода родителя
-            this.modalShow('error'); // Вызов метода родителя
-        });
+                this.deletePreloader(); // Вызов метода родителя
+                this.modalShow('error'); // Вызов метода родителя
+            });
     }
 
 
     /**
      * Метод обработки формы добавления логиста
      */
-    static formAdd() {
+    static formAdd()
+    {
 
         const form = document.getElementById('formAdd');
 
         let formData = new FormData(form);
 
         let formAddLogisticObject = {};
-        formData.forEach(function(value, key){
+        formData.forEach(function (value, key) {
             formAddLogisticObject[key] = value;
         });
 
@@ -84,6 +86,61 @@ export class LogisticModel extends UserService{
                 inputAll.forEach(item=>{
                     item.value = '';
                 })
+
+                const block = document.getElementById('logistic_list');
+                let tr = document.createElement('tr');
+                tr.dataset.id = data.id;
+                tr.innerHTML = `
+                    <td>
+                        ${data.surname + ' ' + data.name + ' ' + data.patronymic}
+                    </td>
+                    <td>
+                        ${data.phone}
+                    </td>
+                    <td>
+                        ${data.transport}
+                    </td>
+                    <td>
+                        ${data.city}
+                    </td>
+                     <td class="desktop-icons" style="text-align: end;">
+                        <i class="bi bi-list" data-action="detail" style="margin-right: 10px" data-bs-toggle="modal" data-bs-target="#exampleModal1"></i>
+                        <i class="bi bi-person-fill-add" data-action="dovAdd" data-bs-toggle="modal" data-bs-target="#exampleModal2"></i>
+                    </td>
+                    <td class="mobile-buttons">
+                        <span class=" d-flex justify-content-end gap-2">
+                            <button data-action="detail" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal1">Подробнее</button>
+                            <button data-action="dovAdd" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal2">Доверенность</button>
+                        </span>
+                    </td>
+                `;
+
+                block.append(tr);
+
+
+                const categories = document.getElementById('catalog');
+                const categoriesList = categories.querySelectorAll('a');
+                const cityName = data.city; // Предположим, что result.city содержит название города
+
+                let cityFound = false;
+
+                categoriesList.forEach(item => {
+                    if (item.innerHTML.trim() === cityName) {
+                        cityFound = true;
+                    }
+                });
+
+                if (!cityFound) {
+                    // Создаем новый элемент <a> с названием города
+                    const newCityLink = document.createElement('a');
+                    newCityLink.classList = 'list-group-item list-group-item-action categories';
+                    newCityLink.dataset.action = 'categories';
+                    newCityLink.innerHTML = cityName;
+
+                    // Добавляем новый элемент в список
+                    categories.appendChild(newCityLink);
+                }
+
                 document.querySelector('textarea.info').value = '';
                 document.querySelector('.AddLogisticSubmit').disabled = true;
                 this.modalHide('formModalAdd');
@@ -106,7 +163,8 @@ export class LogisticModel extends UserService{
             });
     }
 
-    static getPassport(id){
+    static getPassport(id)
+    {
         this.preLoad();
         fetch('logistic/getPassportLogist', {
             method: 'POST',
@@ -123,16 +181,17 @@ export class LogisticModel extends UserService{
                 this.#printPassport(data)
 
             }).catch(error => {
-            this.deletePreloader(); // Вызов метода родителя
-            this.modalShow('error'); // Вызов метода родителя
-        });
+                this.deletePreloader(); // Вызов метода родителя
+                this.modalShow('error'); // Вызов метода родителя
+            });
     }
 
     /**
      * Функция вывода дополнительных данных о логисте
      * @param id
      */
-    static getInfoLogistic(id){
+    static getInfoLogistic(id)
+    {
         this.preLoad();
 
         fetch('logistic/getInfoLogistics', {
@@ -151,9 +210,9 @@ export class LogisticModel extends UserService{
 
 
             }).catch(error => {
-            this.deletePreloader(); // Вызов метода родителя
-            this.modalShow('error'); // Вызов метода родителя
-        });
+                this.deletePreloader(); // Вызов метода родителя
+                this.modalShow('error'); // Вызов метода родителя
+            });
     }
 
     /**
@@ -161,7 +220,8 @@ export class LogisticModel extends UserService{
      * @param page
      * @param search
      */
-    static getPosition(page = 1, search = 'all'){
+    static getPosition(page = 1, search = 'all')
+    {
         this.preLoad(); // Вызов метода родителя
         fetch('logistic/getLogistics', {
             method: 'POST',
@@ -180,15 +240,16 @@ export class LogisticModel extends UserService{
                 document.querySelector('.paginatorNav').innerHTML = '';
                 this.paginatorNav(data[0], data[2])
             }).catch(error => {
-            this.deletePreloader(); // Вызов метода родителя
-            this.modalShow('error'); // Вызов метода родителя
-        });
+                this.deletePreloader(); // Вызов метода родителя
+                this.modalShow('error'); // Вызов метода родителя
+            });
     }
 
     /**
      * Метод для запроса всех категорий
      */
-    static getCity(){
+    static getCity()
+    {
         this.preLoad(); // Вызов метода родителя
         fetch('logistic/getCategories', {
             method: 'POST',
@@ -204,16 +265,17 @@ export class LogisticModel extends UserService{
                 this.deletePreloader(); // Вызов метода родителя
                 this.#printCity(data);
             }).catch(error => {
-            this.deletePreloader(); // Вызов метода родителя
-            this.modalShow('error'); // Вызов метода родителя
-        });
+                this.deletePreloader(); // Вызов метода родителя
+                this.modalShow('error'); // Вызов метода родителя
+            });
     }
 
     /**
      * Заполнение формы данных для доверенности данными паспорта логиста
      * @param data
      */
-    static #printPassport(data){
+    static #printPassport(data)
+    {
 
         let document_type = document.querySelector('.document_type');
         let fio = document.querySelector('.fio');
@@ -236,13 +298,14 @@ export class LogisticModel extends UserService{
      * Заполнение данных окна дополнительной информации
      * @param data json данные из базы
      */
-    static #printInfo(data){
+    static #printInfo(data)
+    {
         const name = document.getElementById('name');
         const phone = document.getElementById('number');
         const transport = document.getElementById('transportDetails');
         const dopInfoDetails = document.getElementById('dopInfoDetails');
         let star = '';
-        for (let i = 0; i<data.statistic; i++){
+        for (let i = 0; i<data.statistic; i++) {
             star += `
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16" color="#ffd700">
                     <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
@@ -261,14 +324,14 @@ export class LogisticModel extends UserService{
      * Метод вывода HTML разметки экспедиторов
      * @param data
      */
-    static #printLogistics(data){
+    static #printLogistics(data)
+    {
         const table = document.querySelector('tbody');
         table.innerHTML = "";
-        for(let i = 0; i<data.length; i++){
-
+        for (let i = 0; i<data.length; i++) {
             let star = ' ';
 
-            for(let j = 0; j < data[i].statistic; j++){
+            for (let j = 0; j < data[i].statistic; j++) {
                 star += `
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16" style="color: gold;">
                         <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
@@ -310,7 +373,8 @@ export class LogisticModel extends UserService{
      * Метод добавления категорий
      * @param data
      */
-    static #printCity(data){
+    static #printCity(data)
+    {
         let block = document.querySelector('.list-group');
 
         for (let i = 0; i < data.length; i++) {
@@ -329,7 +393,8 @@ export class LogisticModel extends UserService{
      * Приватный метод обработки ошибок при добавлении логиста
      * @param errors
      */
-    static #error(errors){
+    static #error(errors)
+    {
         const form = document.getElementById('formAdd');
         let inputs = form.querySelectorAll('input');
 
@@ -343,9 +408,9 @@ export class LogisticModel extends UserService{
                 // Если ошибки нет, убираем стили для корректных полей
                 item.classList.remove('emptyInput');
 
-                if(item.classList.contains('phone')){
+                if (item.classList.contains('phone')) {
                     item.nextElementSibling.innerHTML = 'Не более 20 символов';
-                }else{
+                } else {
                     item.nextElementSibling.innerHTML = 'Не более 50 символов';
                 }
             }
@@ -367,15 +432,14 @@ export class Edit extends UserService{
      * @param text текст кнопки для вывода.
      *
      */
-    static addIconEditButton(select, block, text){
+    static addIconEditButton(select, block, text)
+    {
 
         let selectedValue = select.getValue();
 
         if (selectedValue) {
-
             block.innerHTML = `${text} <i class="bi bi-pen pen" data-action="pen"></i>`;
         } else {
-
             block.innerHTML = text;
         }
     }
@@ -386,7 +450,8 @@ export class Edit extends UserService{
      * @param id Компании которую нужно отредактировать
      *
      */
-    static getCompanyInfo(id){
+    static getCompanyInfo(id)
+    {
         this.preLoad();
         fetch('logistic/getDataCompany', {
             method: 'POST',
@@ -404,22 +469,23 @@ export class Edit extends UserService{
                 document.getElementById('exampleModal2').style.zIndex = '1';
                 this.#setFormData(data);
             }).catch(error => {
-            this.deletePreloader(); // Вызов метода родителя
-            this.modalShow('error'); // Вызов метода родителя
-        });
+                this.deletePreloader(); // Вызов метода родителя
+                this.modalShow('error'); // Вызов метода родителя
+            });
     }
 
     /**
      * Метод обновления компании
      */
-    static updateCompany() {
+    static updateCompany()
+    {
 
         const form = document.getElementById('editCompanyForm');
 
         let formData = new FormData(form);
 
         let formUpdate = {};
-        formData.forEach(function(value, key){
+        formData.forEach(function (value, key) {
             formUpdate[key] = value;
         });
 
@@ -463,7 +529,8 @@ export class Edit extends UserService{
      * @param data объект возвращаемый база данных.
      *
      */
-    static #setFormData(data){
+    static #setFormData(data)
+    {
         document.getElementById('editCompanyForm').dataset.id = data[0].id;
         document.getElementById('nameCompanyEdit').value = data[0].company_name;
         document.getElementById('innCompanyEdit').value = data[0].inn_company;
@@ -484,7 +551,8 @@ export class Archive extends UserService{
     /**
      * Метод запроса и вывода всех доверенностей со статусом True
      */
-    static getAttorneyUser(){
+    static getAttorneyUser()
+    {
         this.preLoad();
 
         fetch('logistic/getAttorneyUser', {
@@ -502,16 +570,17 @@ export class Archive extends UserService{
                 this.#printAttorney(data);
 
             }).catch(error => {
-            this.deletePreloader(); // Вызов метода родителя
-            this.modalShow('error'); // Вызов метода родителя
-        });
+                this.deletePreloader(); // Вызов метода родителя
+                this.modalShow('error'); // Вызов метода родителя
+            });
     }
 
     /**
      * Метод удаления доверенности
      * @param elem элемент по которому произошел клик
      */
-    static deleteAttorney(elem){
+    static deleteAttorney(elem)
+    {
 
         const tr = elem.target.closest('tr');
 
@@ -540,9 +609,9 @@ export class Archive extends UserService{
                     });
 
             }).catch(error => {
-            this.deletePreloader(); // Вызов метода родителя
-            this.modalShow('error'); // Вызов метода родителя
-        });
+                this.deletePreloader(); // Вызов метода родителя
+                this.modalShow('error'); // Вызов метода родителя
+            });
     }
 
     /**
@@ -550,10 +619,11 @@ export class Archive extends UserService{
      * в таблицу
      * @param data json объектов со всеми данными доверенностей.
      */
-    static #printAttorney(data){
+    static #printAttorney(data)
+    {
         const tBody = document.getElementById('archive');
         tBody.innerHTML = '';
-        for (let i =0; i<data.length; i++){
+        for (let i =0; i<data.length; i++) {
             let tr = document.createElement('tr');
             tr.dataset.id = data[i].id;
 

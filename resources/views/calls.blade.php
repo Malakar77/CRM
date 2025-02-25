@@ -42,7 +42,7 @@
         </div>
         <div class="body">
             <div class="row justify-content-start">
-                <div class="col-3 mb-3">
+                <div class="col-12 col-md-3 mb-3 company_list">
                     <div class="d-grid gap-3 ">
                         <div class="bg-body-tertiary border rounded-3 p-2" style="height: 91vh;">
                             <div class="mb-3 col-12 h-100" style="overflow: scroll;">
@@ -58,7 +58,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-9  mb-3 result-blocks" style="height: 90vh; overflow: scroll;">
+                <div class="col-12 col-md-9  mb-3 result-blocks" style="height: 90vh; overflow: scroll;">
 
                 </div>
             </div>

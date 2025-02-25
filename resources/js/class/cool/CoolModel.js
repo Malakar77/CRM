@@ -1005,7 +1005,7 @@ export class CoolModel extends UserService{
                         <div class="row bg-body-tertiary border rounded-3 p-2">
                             <div class="container infoBlock">
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-12 col-md-6">
                                         <div class="row mb-1 mt-2"> <!-- Определяем внутренний блок как строку -->
                                             <div class="col-3 infoTitle">ИНН:</div>
                                             <div class="col-9 infoDis border innInfoBlock" style="min-height: 30px"></div>
@@ -1031,7 +1031,7 @@ export class CoolModel extends UserService{
                                             <input class="col-9 infoDis border site">
                                         </div>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-12 col-md-6">
                                         <div class="mb-3 mt-3" style="position: relative">
                                             <label for="exampleFormControlTextarea1" class="form-label">Комментарий</label>
                                             <textarea id="textareaComment" class="form-control mb-2 commentCompany" data-action="count" style="height: 150px; resize: none;" data-enter="setCaret"></textarea>
@@ -1070,7 +1070,7 @@ export class CoolModel extends UserService{
                             </div>
                         </div>
                         <div class="row bg-body-tertiary border rounded-3 p-2 mt-3 ">
-                            <div class="col justify-content-center col-6">
+                            <div class="col justify-content-center col-12 col-md-6">
                                 <div class="row">
                                     <div class="col-9"><h6>Активные задания</h6></div>
                                     <div class="col addTodo" style="text-align: end; font-size: 14px;" data-action="todoAdd"><i class="bi bi-pen" ></i>Добавить</div>
@@ -1079,7 +1079,7 @@ export class CoolModel extends UserService{
 
                                 </ul>
                             </div>
-                            <div class="col justify-content-center col-6">
+                            <div class="col justify-content-center col-12 col-md-6">
                                 <h6>История изминений</h6>
                                 <div class="list-group">
                                     <div class="list-group-item log">

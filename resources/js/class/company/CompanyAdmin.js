@@ -6,12 +6,13 @@ export class CompanyAdmin extends UserService{
     /**
      * Назначение менеджера
      */
-    static editCompany(){
+    static editCompany()
+    {
         const inputs = document.querySelectorAll('.form-check-input');
         let select = document.querySelector('.selectManager').value;
         let name = document.querySelector('.nameText').value;
 
-        if(name.trim() === ''){
+        if (name.trim() === '') {
             document.querySelector('.nameText').classList.add('error');
             return false;
         }
@@ -52,15 +53,16 @@ export class CompanyAdmin extends UserService{
                 });
                 this.unload();
             }).catch(error => {
-            this.deletePreloader();
-            this.modalShow('error');
-        });
+                this.deletePreloader();
+                this.modalShow('error');
+            });
     }
 
     /**
      * Метод удаления компаний
      */
-    static deleteCompany (){
+    static deleteCompany()
+    {
 
         const inputs = document.querySelectorAll('.form-check-input');
 
@@ -91,15 +93,16 @@ export class CompanyAdmin extends UserService{
                 });
 
             }).catch(error => {
-            this.deletePreloader();
-            this.modalShow('error');
-        });
+                this.deletePreloader();
+                this.modalShow('error');
+            });
     }
 
     /**
      * Метод заполнения данными select
      */
-    static addManager (){
+    static addManager()
+    {
         this.preLoad();
         fetch('companyCall/getManager', {
             method: 'POST',
@@ -113,20 +116,21 @@ export class CompanyAdmin extends UserService{
         }).then(response => response.json())
             .then(data => {
                 this.deletePreloader();
-                this.#countCompany ();
+                this.#countCompany();
                 this.#addManager(data);
 
             }).catch(error => {
-            this.deletePreloader();
-            this.modalShow('error');
-        });
+                this.deletePreloader();
+                this.modalShow('error');
+            });
     }
 
     /**
      * Метод вывода списка компаний из выгрузки
      * @param elem
      */
-    static infoExport(elem){
+    static infoExport(elem)
+    {
         let tr = elem.target.closest('tr');
 
         this.preLoad();
@@ -149,9 +153,9 @@ export class CompanyAdmin extends UserService{
                 document.querySelector('.paginatorNav').innerHTML = '';
                 this.paginatorNav(data[0], data[2]);
             }).catch(error => {
-            this.deletePreloader();
-            this.modalShow('error');
-        });
+                this.deletePreloader();
+                this.modalShow('error');
+            });
     }
 
 
@@ -159,7 +163,8 @@ export class CompanyAdmin extends UserService{
      * Добавление класса active
      * @param elem
      */
-    static addActive(elem){
+    static addActive(elem)
+    {
         let tr = elem.target.closest('tr');
         tr.classList.add('active');
     }
@@ -167,7 +172,8 @@ export class CompanyAdmin extends UserService{
     /**
      * Удаление класса active
      */
-    static removeActive(){
+    static removeActive()
+    {
         let table = document.querySelector('.exportList');
         let tr = table.querySelectorAll('tr');
         tr.forEach(item =>{
@@ -177,7 +183,8 @@ export class CompanyAdmin extends UserService{
     /**
      * Метод вывода списка выгрузок
      */
-    static unload(){
+    static unload()
+    {
         this.preLoad();
 
         fetch('companyCall/writeUnload', {
@@ -192,11 +199,12 @@ export class CompanyAdmin extends UserService{
         }).then(response => response.json())
             .then(data => {
                 this.deletePreloader();
+
                 this.#printExport(data)
             }).catch(error => {
-            this.deletePreloader();
-            this.modalShow('error');
-        });
+                this.deletePreloader();
+                this.modalShow('error');
+            });
     }
 
     /**
@@ -205,7 +213,8 @@ export class CompanyAdmin extends UserService{
      * @param page
      * @param status
      */
-    static writeCompany(position = 'all', page = 1, status='add'){
+    static writeCompany(position = 'all', page = 1, status='add')
+    {
         let all = {
             'position': position,
             'page' : page,
@@ -226,19 +235,25 @@ export class CompanyAdmin extends UserService{
                 this.deletePreloader(); // Вызов метода родителя
 
                 // document.querySelector('.exportList').innerHTML = '';
-                this.#printCompany(data[1])
-                document.querySelector('.paginatorNav').innerHTML = '';
-                this.paginatorNav(data[0], data[2])
+                if (data[1]) {
+                    this.#printCompany(data[1]);
+                    document.querySelector('.paginatorNav').innerHTML = '';
+                    this.paginatorNav(data[0], data[2])
+                }
+
+
             }).catch(error => {
-            this.deletePreloader(); // Вызов метода родителя
-            this.modalShow('error'); // Вызов метода родителя
-        });
+                console.log(error)
+                this.deletePreloader(); // Вызов метода родителя
+                this.modalShow('error'); // Вызов метода родителя
+            });
     }
 
     /**
      * Метод добавления в базу данных из файла
      */
-    static sentFile(){
+    static sentFile()
+    {
 
         const form = document.getElementById('formSearch');
         let formFile = new FormData(form);
@@ -294,10 +309,11 @@ export class CompanyAdmin extends UserService{
      * Заполнение Данными select
      * @param data
      */
-    static #addManager(data){
+    static #addManager(data)
+    {
         let select = document.querySelector('.selectManager');
         select.innerHTML = "";
-        for (let i=0; i<data.length; i++){
+        for (let i=0; i<data.length; i++) {
             let option = document.createElement('option');
             option.value = data[i].id;
             option.innerHTML = data[i].name;
@@ -308,7 +324,8 @@ export class CompanyAdmin extends UserService{
     /**
      * функция подсчёта количества выбранных компаний
      */
-    static #countCompany (){
+    static #countCompany()
+    {
         const inputs = document.querySelectorAll('.form-check-input');
         let count = 0;
         inputs.forEach(input => {
@@ -323,25 +340,26 @@ export class CompanyAdmin extends UserService{
      * Метод вывода списка компаний
      * @param result
      */
-    static #printCompany(result){
+    static #printCompany(result)
+    {
 
         const block = document.querySelector('.exportListCompany');
         block.innerHTML = "";
 
-        for (let i = 0; i<result.length; i++){
+        for (let i = 0; i<result.length; i++) {
             let tr = document.createElement('tr');
             tr.dataset.id=result[i].id;
             tr.innerHTML = `
 
-        <td data-action="tdCheck">
+            <td data-action="tdCheck">
             <input class="form-check-input" type="checkbox" data-action="checkInput" type="checkbox">
-        </td>
-        <td data-action="tdCheck">${result[i].inn}</td>
+            </td>
+            <td data-action="tdCheck">${result[i].inn}</td>
 
-        <td data-action="tdCheck" style="width: 50px;">${result[i].name}</td>
+            <td data-action="tdCheck" style="width: 50px;">${result[i].name}</td>
 
-        <td data-action="tdCheck">${result[i].address}</td>
-        <td data-action="tdCheck">
+            <td data-action="tdCheck">${result[i].address}</td>
+            <td data-action="tdCheck">
             <span class="badge text-bg-primary"
             type="button"
             data-bs-container="body"
@@ -349,8 +367,8 @@ export class CompanyAdmin extends UserService{
             data-bs-placement="top"
             data-bs-content="${result[i].status}">${result[i].status}
             </span>
-        </td>
-    `;
+            </td>
+            `;
             block.append(tr);
         }
     }
@@ -359,11 +377,12 @@ export class CompanyAdmin extends UserService{
      * Метод вывод списка выгрузок
      * @param result
      */
-    static #printExport(result){
+    static #printExport(result)
+    {
         let block = document.querySelector('.exportList');
         block.innerHTML = "";
 
-        for (let i = 0; i<result.length; i++){
+        for (let i = 0; i<result.length; i++) {
             let tr = document.createElement('tr');
             let date = this.formatDate(result[i].date_export);
 
@@ -374,7 +393,7 @@ export class CompanyAdmin extends UserService{
             <td data-action="active">
                 <span class="badge text-bg-primary">${result[i].count}</span>
             </td>
-        `;
+            `;
             block.append(tr);
         }
     }
@@ -384,7 +403,8 @@ export class CompanyAdmin extends UserService{
 
 
 export class CompanyService extends UserService{
-    constructor() {
+    constructor()
+    {
         super(); // Вызов конструктора родительского класса
     }
 
@@ -394,7 +414,8 @@ export class CompanyService extends UserService{
     /**
      * Функция добавления выбора компании при нажатии на td
      */
-    static clickChecked(elem){
+    static clickChecked(elem)
+    {
         let tr = elem.target.closest('tr');
         let input = tr.querySelector('input');
         input.checked = input.checked === false;
@@ -403,16 +424,17 @@ export class CompanyService extends UserService{
     /**
      * Метод выбора компаний
      */
-    static checked(elem) {
+    static checked(elem)
+    {
         const inputs = document.querySelectorAll('.form-check-input');
         let allChecked = true;
 
 
         let target = '';
 
-        if(elem.target.tagName === 'BUTTON'){
+        if (elem.target.tagName === 'BUTTON') {
             target = elem.target.querySelector('i');
-        }else{
+        } else {
             target = elem.target;
         }
 
@@ -443,7 +465,8 @@ export class CompanyService extends UserService{
     /**
      * Метод блокировки кнопок редактирования
      */
-    static disableBut() {
+    static disableBut()
+    {
         const but = document.querySelector('.delete');
         const addManager = document.querySelector('.addManager');
         const inputs = document.querySelectorAll('.form-check-input');
@@ -474,9 +497,10 @@ export class CompanyService extends UserService{
     /**
      * таймер выполнения
      */
-    static timeSt() {
+    static timeSt()
+    {
         let i = 0;
-        CompanyService.intervalId = setInterval(function() {
+        CompanyService.intervalId = setInterval(function () {
             let minutes = Math.floor(i / 60);
             let seconds = i % 60;
             let formattedTime = `${minutes}.${seconds.toString().padStart(2, '0')}`;
@@ -488,7 +512,8 @@ export class CompanyService extends UserService{
     /**
      * остановка таймера выполнения
      */
-    static funST(){
+    static funST()
+    {
         this.deletePreloader(); // Вызов метода родителя
         //останавливаем таймер
         clearInterval(CompanyService.intervalId);
@@ -507,7 +532,8 @@ export class CompanyService extends UserService{
      * Валидация формы загрузки данных
      * @returns {boolean}
      */
-    static validateFormFile(){
+    static validateFormFile()
+    {
         const fileInput = document.getElementById('formFile');
 
         // Проверяем, был ли выбран файл
@@ -518,19 +544,19 @@ export class CompanyService extends UserService{
             return false; // Возвращаем false, чтобы предотвратить отправку формы
         }
 
-        if(fileInput.files[0].size > 1000000){
+        if (fileInput.files[0].size > 1000000) {
             fileInput.style.border = '1px Solid red';
             document.getElementById('errorBlock').innerHTML = 'Фаил превышает допустимый размер в 1 МБ';
             document.getElementById('errorBlock').style.color = 'red';
             return false;
         }
 
-        if(fileInput.files[0].type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'){
+        if (fileInput.files[0].type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
             fileInput.style.border = '1px Solid red';
             document.getElementById('errorBlock').innerHTML = 'Формат файла не соответствует .xlsx';
             document.getElementById('errorBlock').style.color = 'red';
             return false;
-        }else{
+        } else {
             fileInput.style.border = '1px Solid green';
             document.getElementById('errorBlock').innerHTML = ' ';
             document.getElementById('errorBlock').style.color = 'white';

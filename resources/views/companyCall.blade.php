@@ -10,6 +10,12 @@
     <title>{{ env('APP_NAME_COMPANY', 'CRM') }}</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sidebars/">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    <style>
+        @media(max-width: 1080px) {
+
+        }
+
+    </style>
 </head>
 <body>
 
@@ -26,13 +32,22 @@
                                 <input type="search" class="form-control searchCompany" placeholder="Search..." aria-label="Search" name="search" data-action="search" data-enter="enter">
                             </form>
                         </div>
-                        <div class="col-2">
-                            <div class="d-grid gap-2">
-                                <button type="button" class="btn btn-primary add-company" data-action="addCompany">
-                                    <i class="bi bi-database-fill-add" data-action="addCompany"></i>
-                                    Добавить
-                                </button>
-                            </div>
+{{--                        <div class="col-2">--}}
+{{--                            <div class="d-grid gap-2">--}}
+{{--                                <button type="button" class="btn btn-primary add-company" data-action="addCompany">--}}
+{{--                                    <i class="bi bi-database-fill-add" data-action="addCompany"></i>--}}
+{{--                                    Добавить--}}
+{{--                                </button>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+                        <div class="col-7 col-md-10">
+                            <button type="button" class="btn btn-outline-primary btn-desktop" data-action="addCompany">
+                                <i class="bi bi-plus-circle" data-action="addCompany"></i>
+                                Добавить
+                            </button>
+                            <button type="button" class="btn btn-outline-primary btn-mobile" data-action="addCompany">
+                                <i class="bi bi-plus-circle" data-action="addCompany"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -40,7 +55,7 @@
         </div>
         <div class="body" >
             <div class="row justify-content-start">
-                <div class="col-12 col-md-4  mb-3 discharge_list" style="height: 100%; padding: 0;">
+                <div class="col-12 col-md-4  mb-3 pe-2 discharge_list" style="height: 100%; padding: 0;">
                     <div class="d-grid gap-3 " style="height: 92vh;">
                         <div class="bg-body-tertiary border rounded-3 p-2">
                             <div class="mb-3 col-12" >
@@ -59,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-4  mb-3 blockDatails" style="">
+                <div class="col-12 col-md-8  mb-3 blockDatails" style="">
                     <div class="mb-3" style="height: 100%;">
                         <div class="row bg-body-tertiary border rounded-3 p-2" style="height: 92vh;">
                             <div class="container ">
@@ -176,12 +191,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
 
 @include('error')
 

@@ -228,18 +228,38 @@ thead{
 .active td{
     background-color: #0a5cae;
 }
+.btn-mobile{
+    display: none !important;
+}
+.btn-desktop{
+    display: block;
+}
 @media(max-width: 1080px) {
+    .btn-desktop{
+        display: none;
+    }
+    .btn-mobile{
+        display: block !important;
+    }
 
+    .searchCompany{
+        width: 17rem;
+    }
     .container-block{
         margin-top: 50px;
     }
 
     .discharge_list{
         height: 30vh !important;
+        padding: 0 !important;
     }
     .discharge_list > .d-grid{
         height: 30vh !important;
         overflow: scroll;
+    }
+
+    .blockDatails  .container{
+        padding: 0 !important;
     }
 
 }

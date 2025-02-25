@@ -95,12 +95,12 @@
                             <tr>
                                 <th class="col-3">Имя</th>
                                 <th class="col-3">Контакт</th>
-                                <th class="col-4">Транспорт</th>
-                                <th class="col-1">Город</th>
-                                <th class="col-3">Информация</th>
+                                <th class="col-2">Транспорт</th>
+                                <th class="col-3">Город</th>
+                                <th class="col-1">Информация</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="logistic_list">
 
                             </tbody>
                         </table>

@@ -29,7 +29,7 @@ class LogisticModel extends Model
         $query = self::query()->select('id', 'statistic', 'name', 'surname', 'patronymic', 'phone', 'transport', 'city');
 
         if ($search !== 'all') {
-            $query->where(function($query) use ($search) {
+            $query->where(function ($query) use ($search) {
                 $search = UtilityHelper::get_variable($search); // Оставляем ввод пользователя как есть
                 $query->where('name', 'ILIKE', '%' . $search . '%')
                     ->orWhere('surname', 'ILIKE', '%' . $search . '%')
@@ -41,21 +41,21 @@ class LogisticModel extends Model
         }
 
         return $query->paginate(21, ['*'], 'page', $page);
-
     }
 
     /**
      * Метод добавления экспедитора
      */
-    public static function addLogist(object $data): void
+    public static function addLogist(object $data): int
     {
         $logist= self::where('phone', UtilityHelper::get_variable($data->phone))->first();
 
-        if($logist !== null){
+        if ($logist !== null) {
             throw new Exception('Логист с таким номером телефона уже существует.');
         }
+        Log::info('New logistic added', ['id' => auth()->id(), 'logistic_name' => $data->name]);
 
-        self::query()->insert([
+        return self::query()->insertGetId([
             'city' => UtilityHelper::get_variable($data->city),
             'info' => UtilityHelper::get_variable($data->info),
             'name' => UtilityHelper::get_variable($data->name),
@@ -66,8 +66,6 @@ class LogisticModel extends Model
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
-        Log::info('New logistic added', ['id' => auth()->id(), 'logistic_name' => $data->name]);
-
     }
 
     public static function getInfoLogistics(int $id): mixed
@@ -76,9 +74,4 @@ class LogisticModel extends Model
         return self::query()->select('id', 'statistic', 'name', 'surname', 'patronymic', 'phone', 'transport', 'info')
                                 ->where('id', UtilityHelper::get_variable($id))->first();
     }
-
-
-
-
-
 }

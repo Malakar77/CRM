@@ -96,7 +96,7 @@ class ManagerModel extends Model
     {
         return DB::table('providers')
                 ->join('managers', 'providers.id', '=', 'managers.id_company')
-                ->select('providers.name', 'managers.name_manager', 'managers.phone', 'managers.email')
+                ->select('providers.id', 'providers.name', 'managers.name_manager', 'managers.phone', 'managers.email')
                 ->where('managers.id', $id)
                 ->get();
     }

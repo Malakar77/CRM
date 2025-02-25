@@ -73,7 +73,15 @@ class Manager extends Controller
      */
     static function editManager(Request $request): \Illuminate\Http\JsonResponse
     {
-        $result = ManagerModel::editManager($request);
+        $valideData = $request->validate([
+            'id' => 'required|integer|max:15',
+            'name'  => 'required|string|max:150',
+            'phone' => 'required|string|max:25',
+            'email' => 'required|string|max:150',
+        ]);
+
+
+        $result = ManagerModel::editManager($valideData);
         if ($result !== false) {
             return response()->json($request);
         }
