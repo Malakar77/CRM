@@ -23,7 +23,7 @@
                 <!-- Левая колонка (калькулятор) -->
                 <div class="col-12 col-md-8">
                     <div class="d-grid gap-3">
-                        <div class="bg-body-tertiary border rounded-3">
+                        <div class="bg-body-tertiary border rounded-3" style="overflow-y: auto">
                             <iframe
                                 id="myIframe"
                                 width="100%"

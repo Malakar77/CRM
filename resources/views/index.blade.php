@@ -24,10 +24,10 @@
         <div class="col-12">
             <form id="login_form">
                 <div class="input-box">
-                    <input id="login" class="login" autofocus="autofocus" placeholder="Логин"/>
+                    <input id="login" class="login" autofocus="autofocus" placeholder="Логин"  data-enter="sent"/>
                 </div>
                 <div class="input-box">
-                    <input id="password" type="password" class="pass" value="" placeholder="Пароль"/>
+                    <input id="password" type="password" class="pass" value="" placeholder="Пароль"  data-enter="sent"/>
                     <span class=" unit material-symbols-outlined">visibility_off</span>
                 </div>
                 <div class="row">

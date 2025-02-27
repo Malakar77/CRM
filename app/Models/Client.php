@@ -109,6 +109,7 @@ class Client extends Model
                 'check_sale.date_check',
                 'check_sale.status'
             )
+            ->orderBy('check_sale.date_check', 'desc')
             ->get();
     }
 

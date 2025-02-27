@@ -69,6 +69,7 @@ a {
 
     #myIframe{
         padding: 0.5em ;
+        width: 54em;
     }
     .calculator{
         width: 100%;

@@ -388,7 +388,7 @@ export class Client extends Service {
                 </td>
 
                 <td data-description="date" data-click="activeTr">${dateTime['full']}</td>
-                <td data-description="date" style="text-align: center;vertical-align: middle;" class="details-check" data-click="activeTr" data-click="activeTr">
+                <td data-description="date" style="text-align: center;vertical-align: middle;" class="details-check" data-click="detailsCheck">
                     <i class="bi bi-search" data-click="detailsCheck"></i>
                 </td>
             `;
@@ -491,7 +491,13 @@ export class Client extends Service {
             tegI.forEach(item => {
                 item.classList.remove('active-search');
             })
-            elem.target.classList.add('active-search');
+
+            if(elem.target.tagName === 'TD'){
+                elem.target.querySelector('i').classList.add('active-search')
+            }else{
+                elem.target.classList.add('active-search');
+            }
+
         } else {
             const tegI = document.querySelectorAll('.bi-search');
             tegI.forEach(item => {
@@ -499,7 +505,6 @@ export class Client extends Service {
             })
             this.deleteDetailsCheck();
         }
-
     }
 
     /**

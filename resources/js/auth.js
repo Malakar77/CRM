@@ -1,10 +1,9 @@
 import {Service} from "./class/Auth.js";
 
-
 document.addEventListener('DOMContentLoaded', (e)=>{
 
     new clickController(document.querySelector('body'), Service);
-
+    new keyDownController(document.querySelector('body'), Service);
 })
 
 class clickController {
@@ -33,17 +32,31 @@ class clickController {
 }
 
 
+class keyDownController {
+    constructor(elem, service)
+    {
+        this.service = service;
+        elem.addEventListener('keydown', this.keyDown.bind(this));  // Используем событие change
+    }
 
 
-/**
- * Функция удаления прелоадера.
- * Проверяет наличие элемента с классом 'loader' и удаляет его,
- * а также убирает класс 'sent' у кнопки.
- */
-function deleteLoader() {
-    // Если есть прелоадер, удаляем его
-    if (document.querySelector('.loader')) {
-        document.querySelector('.loader').remove();
-        document.querySelector('.glow-on-hover').classList.remove('sent');
+    sent()
+    {
+        this.service.validateFormLogin();
+    }
+
+
+    /**
+     * Обработчик события нажатия клавиш
+     */
+    keyDown(event)
+    {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            let action = event.target.dataset.enter;
+            if (action && typeof this[action] === 'function') {
+                this[action](event);
+            }
+        }
     }
 }

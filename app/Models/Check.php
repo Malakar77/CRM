@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class Check extends Model
 {
@@ -139,56 +140,63 @@ class Check extends Model
      */
     public static function addHeaders(object $data)
     {
-        $numberCheck = UtilityHelper::get_variable($data->number);
-
-        // Проверяем наличие записи с таким номером счета
-        $check = DB::table('check_sale')
-            ->where('number_check', $numberCheck)
-            ->whereNotIn('status', ['old', 'close'])
-            ->first();
-
-        if ($check) {
-            // Обновляем существующую запись
-            DB::table('check_sale')
-                ->where('id', $check->id)
-                ->update([
-                    'id_user' => Auth::id(),
-                    'id_client' => UtilityHelper::get_variable($data->id_company),
-                    'id_company' => UtilityHelper::get_variable($data->companyProvider),
-                    'number_check' => $numberCheck,
-                    'date_check' => UtilityHelper::get_variable($data->date),
-                    'comment' => htmlspecialchars(trim($data->comment)),
-                    'status' => '16.6',
-                    'updated_at' => \Carbon\Carbon::now(),
-                ]);
-            $result['id_check_sale'] = $check->id;
-            $result['new_id'] = $check->id;
-        } else {
-            // Создаем новую запись
-            $newId = DB::table('check_sale')
-                ->insertGetId([
-                    'id_user' => Auth::id(),
-                    'id_client' => UtilityHelper::get_variable($data->id_company),
-                    'id_company' => UtilityHelper::get_variable($data->companyProvider),
-                    'number_check' => $numberCheck,
-                    'date_check' => UtilityHelper::get_variable($data->date),
-                    'comment' => htmlspecialchars(trim($data->comment)),
-                    'status' => '16.6',
-                    'created_at' => \Carbon\Carbon::now(),
-                    'updated_at' => \Carbon\Carbon::now(),
-                ]);
 
 
-            if (preg_match('/^[А-Яа-я]{3}(?:[0-8]?\d{0,5}|900000)$/u', $numberCheck)) {
-                // Если формат AAA100, вызываем функцию updateNumber
-                UtilityHelper::updateNumber();
+        DB::beginTransaction();
+        try {
+            $numberCheck = UtilityHelper::get_variable($data->number);
+
+            // Проверяем наличие записи с таким номером счета
+            $check = DB::table('check_sale')
+                ->where('number_check', $numberCheck)
+                ->first();
+
+            if ($check !== null) {
+                // Обновляем существующую запись
+                DB::table('check_sale')
+                    ->where('id', $check->id)
+                    ->update([
+                        'id_user' => Auth::id(),
+                        'id_client' => UtilityHelper::get_variable($data->id_company),
+                        'id_company' => UtilityHelper::get_variable($data->companyProvider),
+                        'number_check' => $numberCheck,
+                        'date_check' => UtilityHelper::get_variable($data->date),
+                        'comment' => htmlspecialchars(trim($data->comment)),
+                        'status' => '16.6',
+                        'updated_at' => \Carbon\Carbon::now(),
+                    ]);
+                $result['id_check_sale'] = $check->id;
+                $result['new_id'] = $check->id;
+            } else {
+                // Создаем новую запись
+                $newId = DB::table('check_sale')
+                    ->insertGetId([
+                        'id_user' => Auth::id(),
+                        'id_client' => UtilityHelper::get_variable($data->id_company),
+                        'id_company' => UtilityHelper::get_variable($data->companyProvider),
+                        'number_check' => $numberCheck,
+                        'date_check' => UtilityHelper::get_variable($data->date),
+                        'comment' => htmlspecialchars(trim($data->comment)),
+                        'status' => '16.6',
+                        'created_at' => \Carbon\Carbon::now(),
+                        'updated_at' => \Carbon\Carbon::now(),
+                    ]);
+
+                if (preg_match('/^[А-Яа-я]{3}(?:[0-8]?\d{0,5}|900000)$/u', $numberCheck)) {
+                    UtilityHelper::updateNumber();
+                }
+
+                $result['id_check_sale'] = null;
+                $result['new_id'] = $newId;
             }
 
-            $result['id_check_sale'] = null;
-            $result['new_id'] = $newId;
+            DB::commit();
+            return $result;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error("Ошибка в addHeaders: " . $e->getMessage());
+            throw $e;
         }
-
-        return $result;
     }
 
     /**

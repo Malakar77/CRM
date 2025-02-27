@@ -14,7 +14,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>{{ env('APP_NAME_COMPANY', 'CRM') }}</title>
     @vite(['resources/sass/app.scss'])
-    @vite(['resources/css/sidebars.css', 'resources/js/custom.js', 'resources/css/filemanager.css'])
+
+    @vite(['resources/css/sidebars.css', 'resources/css/filemanager.css'])
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.5.0/css/all.min.css">
@@ -22,7 +23,7 @@
   <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/cropper.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/dropzone.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/mime-icons.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/lfm.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendor/laravel-filemanager/css/lfm.css') }}?v=1.0.1">
 {{--  <style>{!! \File::get(base_path('vendor/unisharp/laravel-filemanager/public/css/lfm.css')) !!}</style>--}}
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3.0/examples/sidebars/">
 
@@ -44,6 +45,7 @@
     </style>
   {{-- Use the line below instead of the above if you need to cache the css. --}}
   {{-- <link rel="stylesheet" href="{{ asset('/vendor/laravel-filemanager/css/lfm.css') }}"> --}}
+        @vite([ 'resources/js/custom.js'])
 </head>
 <body>
 <main class="d-flex flex-nowrap">
@@ -56,7 +58,7 @@
                 <div class="py-3 mb-3 border-bottom w-100 ">
                         <nav class="navbar sticky-top navbar-expand-lg navbar-dark " id="nav">
                             <div class="row w-100">
-                                <div class="col-2">
+                                <div class="col-12 col-md-2" style="height: 35px">
                                     <a class="navbar-brand invisible-lg d-none d-lg-inline justify-content-start ms-1 align-middle" id="to-previous">
                                         <i class="fas fa-arrow-left fa-fw align-middle"></i>
                                         <span class="d-none d-lg-inline align-middle">{{ trans('laravel-filemanager::lfm.nav-back') }}</span>
@@ -112,7 +114,7 @@
 
 
             <div class="row">
-                <div class="col-12 col-md-3">
+                <div class="col-12 col-md-3 mb-3">
                     <div id="tree"></div>
                 </div>
                 <div class="col-12 col-md-9">
@@ -192,46 +194,49 @@
       </div>
     </div>
   </div>
-
-  <div class="modal fade" id="notify" tabindex="-1" role="dialog" aria-hidden="true">
+@include('theme')
+<div class="modal fade" id="notify" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="max-width: 992px">
-      <div class="modal-content">
-        <div class="modal-body" id="prew"></div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary w-100" data-dismiss="modal" data-click="closeModal">{{ trans('laravel-filemanager::lfm.btn-close') }}</button>
+        <div class="modal-content">
+            <div class="modal-body" id="prew"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal" data-click="closeModal">{{ trans('laravel-filemanager::lfm.btn-close') }}</button>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 
-  <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- Модальное окно "confirm" -->
+<div class="modal fade" id="confirm" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="width: 992px">
-      <div class="modal-content">
-        <div class="modal-body"></div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ trans('laravel-filemanager::lfm.btn-close') }}</button>
-              <button type="button" class="btn btn-primary" data-dismiss="modal">{{ trans('laravel-filemanager::lfm.btn-confirm') }}</button>
-          </div>
-      </div>
+        <div class="modal-content">
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ trans('laravel-filemanager::lfm.btn-close') }}</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">{{ trans('laravel-filemanager::lfm.btn-confirm') }}</button>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
 
-  <div class="modal fade" id="dialog" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- Модальное окно "dialog" -->
+<div class="modal fade" id="dialog" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title"></h4>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"></h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ trans('laravel-filemanager::lfm.btn-close') }}</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">{{ trans('laravel-filemanager::lfm.btn-confirm') }}</button>
+            </div>
         </div>
-        <div class="modal-body">
-          <input type="text" class="form-control">
-        </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ trans('laravel-filemanager::lfm.btn-close') }}</button>
-              <button type="button" class="btn btn-primary" data-dismiss="modal">{{ trans('laravel-filemanager::lfm.btn-confirm') }}</button>
-          </div>
-      </div>
     </div>
-  </div>
+</div>
 
   <div id="carouselTemplate" class="d-none carousel slide bg-light" data-ride="carousel">
     <ol class="carousel-indicators">

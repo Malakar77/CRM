@@ -85,7 +85,7 @@
                 </button>
                 <div class="collapse" id="продажи-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li class="editMenuLi"><a href="my_sale.php" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Продажи</a></li><li class="editMenuLi"><a href="/my_company" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Клиенты</a></li><li class="editMenuLi"><a href="/company" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Компании Админ</a></li><li class="editMenuLi"><a href="/calls" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Холодные звонки</a></li>
+                       <li class="editMenuLi"><a href="/my_company" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Клиенты</a></li><li class="editMenuLi"><a href="/company" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Компании Админ</a></li><li class="editMenuLi"><a href="/calls" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Холодные звонки</a></li>
                     </ul>
                 </div>
             </li></ul>
