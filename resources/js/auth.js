@@ -1,6 +1,6 @@
 import {Service} from "./class/Auth.js";
 
-document.addEventListener('DOMContentLoaded', (e)=>{
+document.addEventListener('DOMContentLoaded', ()=>{
 
     new clickController(document.querySelector('body'), Service);
     new keyDownController(document.querySelector('body'), Service);

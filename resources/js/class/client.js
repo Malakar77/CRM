@@ -238,7 +238,7 @@ export class Client extends Service {
                 `;
                 this.admin(data.admin);
                 this.#printAllCompanyUser(data.company);
-            }).catch(error => {
+            }).catch(() => {
             this.deletePreloader(); // Вызов метода родителя
             this.modalShow('error'); // Вызов метода родителя
         });
@@ -326,7 +326,7 @@ export class Client extends Service {
                 this.countTextTextarea('commentCompany', 'textInfo');
                 this.printAllCheck(data.check);
 
-            }).catch(error => {
+            }).catch(() => {
 
             this.deletePreloader(); // Вызов метода родителя
             this.modalShow('error'); // Вызов метода родителя
@@ -468,7 +468,7 @@ export class Client extends Service {
                         </td>
                `;
                 elem.after(detailsBlock);
-            }).catch(error => {
+            }).catch(() => {
             this.deletePreloader(); // Вызов метода родителя
             this.modalShow('error'); // Вызов метода родителя
         });

@@ -221,110 +221,69 @@ class Check_total extends Model
      * @param $email
      * @return bool|string
      */
-    public static function sentEmail($email)
+    public static function sentFolder($email)
     {
-        $mail = new PHPMailer(true);
-        $mail->XMailer = env('APP_NAME', 'CRM');
+        // Сохраняем детали письма в базу данных
+        SentEmail::create([
+            'to' => $email['emailCompany'],
+            'bcc' => Auth::user()->login,
+            'subject' => $email['subject'],
+            'body' => $email['textEmail'],
+            'attachment' => $email['file'] ? json_encode($email['check']) : null,
+            'user_id' => Auth::id(),
+        ]);
 
-        try {
-            // Настройки сервера
-            $mail->isSMTP(); // Устанавливаем использование SMTP
+        // Инициализация IMAP-клиента
+        $cm = new ClientManager();
+        $client = $cm->make([
+            'host' => env('IMAP_HOST'),
+            'port' => env('IMAP_PORT'),
+            'encryption' => env('IMAP_ENCRYPTION'),
+            'validate_cert' => false,
+            'username' => Auth::user()->login,
+            'password' => Auth::user()->pass_email,
+            'protocol' => 'imap'
+        ]);
 
-            $mail->Host =  env('MAIL_HOST', 'vip232.hosting.reg.ru');
-            $mail->SMTPAuth =  env('MAIL_MAILER', true); // Включаем аутентификацию SMTP
-            $mail->Username = env('MAIL_USERNAME') ?: Auth::user()->login; // Логин от почтового ящика
-            $mail->Password = env('MAIL_PASSWORD') ?: Auth::user()->pass_email; // Пароль от почтового ящика
-            $mail->SMTPSecure =  env('MAIL_ENCRYPTION', 'tls'); // Тип шифрования
-            $mail->Port = env('MAIL_PORT', 587); // Порт SMTP сервера
+        // Подключение к IMAP-серверу
+        $client->connect();
 
-            // Настройки отправителя и получателя
-            $mail->setFrom(Auth::user()->login, Auth::user()->name); // Адрес и имя отправителя
-            $mail->addAddress($email['emailCompany'], ''); // Адрес и имя получателя
-            $mail->addBCC(Auth::user()->login, 'АК Сплав');
 
-            // Устанавливаем кодировку
-            $mail->CharSet = 'UTF-8';
-            // Устанавливаем тему письма и тело
-            $mail->Subject = UtilityHelper::get_variable($email['subject']);
+        if (!$client->getFolder('CRM')) {
+            $client->createFolder('CRM');
+            $client->disconnect();
+            $client->connect();
+        }
 
-            $mail->Body = $email['textEmail']."\n\n\n". Auth::user()->signature;
+        // Получаем папку "CRM" заново (в случае, если она была только что создана)
+        $sentFolder = $client->getFolder('CRM');
 
-            $mail->AltBody = '';
+        // Убедимся, что папка выбрана
+        $sentFolder->select();
 
-            // Добавляем дополнительное сообщение в исходящие
-            $mail->MessageDate = date('Y-m-d H:i:s'); // Добавляем дату сообщения
+        // Создаем новое сообщение с помощью Swift Mailer
+        $swiftMessage = new Swift_Message();
+        $swiftMessage->setFrom([Auth::user()->login => Auth::user()->name]);
+        $swiftMessage->setTo([$email['emailCompany']]);
+        $swiftMessage->setSubject($email['subject']);
+        $swiftMessage->setBody(nl2br($email['textEmail']) . "<br><br>" . nl2br(Auth::user()->signature), 'text/html');
 
-            if ($email['file'] === true) {
-                $fileCheck = UtilityHelper::getFilePDF($email['check']);
-                $filePath = preg_replace('/[\/:*?"<>|]/', '_', $fileCheck['name'] . '.pdf');
-                $mail->addAttachment(Storage::path($filePath));
-            }
+        // Прикрепляем файл, если он существует
+        if ($email['file'] && isset($email['check'])) {
+            $fileCheck = UtilityHelper::getFilePDF($email['check']);
+            $filePath = preg_replace('/[\/:*?"<>|]/', '_', $fileCheck['name'] . '.pdf');
 
-            if (file_exists(Storage::path('public/icon/Logo.jpg'))) {
-                $file_path = Storage::path('public/icon/Logo.jpg');
-                $mail->addEmbeddedImage($file_path, 'logo_cid');
-            }
-
-            // Добавление заголовка X-Sent-Flag
-            $mail->addCustomHeader('X-Sent-Flag', 'true');
-            // DKIM настройки
-            $mail->DKIM_domain = env('EMAIL_DKIM');
-            $mail->DKIM_passphrase = '';  // Оставьте пустым, если у вашего ключа нет пароля
-            $mail->DKIM_identity = $mail->From;
-
-            if ($mail->send()) {
-                SentEmail::create([
-                    'to' => $email['emailCompany'],
-                    'bcc' => Auth::user()->login,
-                    'subject' => $email['subject'],
-                    'body' => $email['textEmail'],
-                    'attachment' => $email['file'] ? json_encode($email['check']) : null,
-                    'user_id' => Auth::id(),
-                ]);
-
-                $cm = new ClientManager();
-                $client = $cm->make([
-                    'host' => env('IMAP_HOST'),
-                    'port' => env('IMAP_PORT'),
-                    'encryption' => env('IMAP_ENCRYPTION'),
-                    'validate_cert' => false,
-                    'username' => env('MAIL_USERNAME') ?: Auth::user()->login,
-                    'password' => env('MAIL_PASSWORD') ?: Auth::user()->pass_email,
-                    'protocol' => 'imap'
-                ]);
-
-                $client->connect();
-
-                if (!$client->getFolder('Sent')) {
-                    // Если папка "Sent" не существует, создаем её
-                    $client->createFolder('Sent');
-                }
-
-                $sentFolder = $client->getFolder('Sent');
-
-                // Формирование полного сообщения
-                $swiftMessage = new Swift_Message();
-                $swiftMessage->setFrom([Auth::user()->login => Auth::user()->name]);
-                $swiftMessage->setTo([$email['emailCompany']]);
-                $swiftMessage->setSubject($email['subject']);
-                $swiftMessage->setBody(nl2br($email['textEmail']) . "<br><br>" . nl2br(Auth::user()->signature), 'text/html');
-
-                $fileCheck = UtilityHelper::getFilePDF($email['check']);
-                $filePath = preg_replace('/[\/:*?"<>|]/', '_', $fileCheck['name'] . '.pdf');
-
-                // Прикрепление файла
+            if (Storage::exists($filePath)) {
                 $attachment = Swift_Attachment::fromPath(Storage::path($filePath));
                 $swiftMessage->attach($attachment);
-
-                // Получение MIME-сообщения
-                $mimeMessage = $swiftMessage->toString();
-
-                // Сохранение письма в папке "Отправленные"
-                $sentFolder->appendMessage($mimeMessage);
             }
-            return true;
-        } catch (Exception $e) {
-            return json_encode($mail->ErrorInfo);
         }
+
+        // Преобразуем Swift-сообщение в MIME-сообщение
+        $mimeMessage = $swiftMessage->toString();
+
+        // Добавляем сообщение в папку "CRM"
+        $sentFolder->appendMessage($mimeMessage);
     }
+
 }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\CheckMail;
 use App\Services\UtilityHelper\UtilityHelper;
 use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -445,8 +447,12 @@ class Check_total extends Controller
                 'textEmail' => 'nullable|string|min:1|max:1000',
                 'check' => 'required|integer|min:1',
             ]);
+            \App\Models\Check_total::sentFolder($validEmail);
+            Mail::send(new CheckMail($validEmail));
 
-            return response()->json(\App\Models\Check_total::sentEmail($validEmail));
+
+//            return response()->json(\App\Models\Check_total::sentEmail($validEmail));
+            return response()->json();
         } catch (\Exception $e) {
             return response()->json($e->getMessage(), 401);
         }
