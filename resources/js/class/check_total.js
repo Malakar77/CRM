@@ -244,7 +244,7 @@ export class Check extends Service{
         const email = {
             'emailCompany' : document.getElementById('emailCompany').value.trim(),
             'subject' : document.getElementById('subject').value.trim(),
-            'textEmail' : document.getElementById('textEmail').value.trim(),
+            'textEmail' : document.getElementById('textEmail').value.trim().replace(/\n/g, '<br>'),
             'check': this.getParam('check'),
             'file' : file
         }

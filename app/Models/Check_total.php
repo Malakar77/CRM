@@ -201,17 +201,12 @@ class Check_total extends Model
      */
     public static function dataCompany($id)
     {
-        $Check = UtilityHelper::get_variable($id);
-
-        $id_client = DB::table('check_sale')
-            ->select('id_client')
-            ->where('id', '=', $Check)
-            ->first();
+        $id = UtilityHelper::get_variable($id);
 
         return DB::table('check_sale')
             ->join('info_companies', 'info_companies.id_company', '=', 'check_sale.id_client')
             ->select('info_companies.email_contact', 'check_sale.number_check', 'check_sale.date_check')
-            ->where('check_sale.id_client', '=', $id_client->id_client)
+            ->where('check_sale.id', '=', $id)
             ->where('info_companies.status', '=', 'add')
             ->first();
     }

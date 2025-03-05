@@ -1,9 +1,6 @@
-import {LogisticModel, Archive, Edit} from "./class/logistic/LogistModel.js";
-import {ViewProvider} from "./class/ProviderClass.js";
-import {Company} from "./class/logistic/company.js";
-import {UserService} from "./script.js";
+import {LogisticModel} from "./class/logistic.js";
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     LogisticModel.getCity();
     LogisticModel.getPosition();
     $.mask.definitions['h'] = "[0|1|3|4|5|6|7|9]"
@@ -17,18 +14,18 @@ document.addEventListener('DOMContentLoaded', function() {
     $('#companyProvider').selectize();
 
     const selectizeInstance = $('#select')[0].selectize;
-    selectizeInstance.on('change', function(value) {
-        Edit.addIconEditButton(selectizeInstance, document.querySelector('.labelSelect') , 'Компания');
+    selectizeInstance.on('change', function (value) {
+        LogisticModel.addIconEditButton(selectizeInstance, document.querySelector('.labelSelect') , 'Компания');
     });
 
     const selectProvider = $('.companyProvider')[0].selectize;
-    selectProvider.on('change', function(value) {
-        Edit.addIconEditButton(selectProvider, document.querySelector('#selectProvider') , 'На получение от');
+    selectProvider.on('change', function (value) {
+        LogisticModel.addIconEditButton(selectProvider, document.querySelector('#selectProvider') , 'На получение от');
     });
 
-    new clickController(document.querySelector('body'), Archive, ViewProvider, LogisticModel, UserService, Company, Edit);
-    new changeController(document.querySelector('body'), ViewProvider, UserService, LogisticModel);
-    new keyDownController(document.querySelector('input.search'), ViewProvider, UserService, LogisticModel);
+    new clickController(document.querySelector('body'), LogisticModel);
+    new changeController(document.querySelector('body'), LogisticModel);
+    new keyDownController(document.querySelector('input.search'), LogisticModel);
 })
 
 /**
@@ -63,81 +60,94 @@ myModal3.addEventListener('hide.bs.modal', () =>{
 
 class clickController{
 
-    constructor(elem, archive, provider, logistic , service , company , edit) {
-        this.archive    = archive;
-        this.provider   = provider;
-        this.logistic   = logistic;
+    constructor(elem, service)
+    {
         this.service    = service;
-        this.company    = company;
-        this.edit       = edit;
         elem.onclick    = this.onClick.bind(this);
     }
 
 
-    pageAttorney(event){
-
-            if (!event.target.querySelector('.bi-trash')) {
-                let id = event.target.closest('tr');
-                window.location.href = `/attorney?id=${id.dataset.id}`;
-            }
+    pageAttorney(event)
+    {
+        if (!event.target.querySelector('.bi-trash')) {
+            let id = event.target.closest('tr');
+            window.location.href = `/attorney?id=${id.dataset.id}`;
+        }
 
     }
     /**
      * обработчик при клике на ссылки
      */
-    categories(event){
+    categories(event)
+    {
         document.querySelector("input.search").value = ' ';
-        this.provider.addActive(event.target);
-        this.logistic.getPosition(1, event.target.innerHTML);
+        this.service.addActive(event.target);
+        this.service.getPosition(1, event.target.innerHTML);
     }
 
     /**
      * обработчик формы добавить при клике
     */
-    addCompanyButton(event){
+    addCompanyButton(event)
+    {
         this.service.validateForm('formAdd', '.AddLogisticSubmit');
-        this.logistic.formAdd();
-        // this.company.addCompany();
+        this.service.formAdd();
+        // this.service.addCompany();
     }
+
+    /**
+     * обработчик формы добавить при клике
+     */
+    addCompanyProvider(event)
+    {
+        this.service.validateForm('formAdd', '.AddLogisticSubmit');
+        this.service.addCompany();
+    }
+
 
     /**
      * Обработка события детальной информации о логисте
      */
-    detail(event){
+    detail(event)
+    {
         const tr = event.target.closest('tr');
-        this.logistic.getInfoLogistic(tr.dataset.id)
+        this.service.getInfoLogistic(tr.dataset.id)
     }
 
     /**
      * Обработка события добавления номера доверенности
      */
-    plus(event){
+    plus(event)
+    {
         this.#numberDover(event.target);
     }
 
     /**
      * Вывод модельного окна Добавления доверенности и вывод паспортных данных
      */
-    dovAdd(event){
+    dovAdd(event)
+    {
         const tr = event.target.closest('tr');
         document.getElementById('dov').dataset.id = tr.dataset.id;
-        this.logistic.getPassport(tr.dataset.id);
-        this.company.getCompany();
+        this.service.getPassport(tr.dataset.id);
+        this.service.getCompany();
     }
 
     /**
      * Обработчик события редактирования компании
      */
-    pen(event){
+    pen(event)
+    {
         let div = event.target.closest('.row');
         let id = div.querySelector('select').value;
-        this.edit.getCompanyInfo(id);
+        this.service.getCompanyInfo(id);
     }
 
     /**
      * Обработка формы доверенности
      */
-    submitDov(event){
+    submitDov(event)
+    {
         this.#emptyInput();
     }
 
@@ -145,43 +155,49 @@ class clickController{
      * Обработка формы редактирования компании
      * @param event
      */
-    editCompanyButton(event){
-        this.edit.updateCompany();
+    editCompanyButton(event)
+    {
+        this.service.updateCompany();
     }
 
     /**
      * поиск компании по ИНН
      */
-    addCompanyInn(event){
-        this.company.searchApi();
+    addCompanyInn()
+    {
+        this.service.searchApi();
     }
 
     /**
      * Поиск данных банка по БИК
      */
-    searchBank(event){
-        this.company.searchBankApi();
+    searchBank(event)
+    {
+        this.service.searchBankApi();
     }
 
     /**
      * показ всех доверенностей
      */
-    printArchive (event){
-        this.archive.getAttorneyUser();
+    printArchive(event)
+    {
+        this.service.getAttorneyUser();
     }
 
     /**
      * Удаление доверенности
      * @param event
      */
-    trash(event){
-        this.archive.deleteAttorney(event);
+    trash(event)
+    {
+        this.service.deleteAttorney(event);
     }
 
     /**
      * Обработка формы добавления компании
      */
-    addMyCompany(event){
+    addMyCompany(event)
+    {
         document.getElementById('exampleModal2').style.zIndex = '1';
 
         this.service.modalShow('addProvider');
@@ -197,43 +213,44 @@ class clickController{
      * обработчик событий на перелистывание страниц
      * @param event
      */
-    pageLink(event){
+    pageLink(event)
+    {
         let searchValue = document.querySelector("input.search").value.trim();
         let page = parseInt(event.target.dataset.href);
-        let active = ViewProvider.searchActive();
+        let active = this.service.searchActive();
 
         if (searchValue !== '') {
-            this.logistic.getPosition(page, searchValue);
+            this.service.getPosition(page, searchValue);
         } else {
             if (active) {
-                this.logistic.getPosition(page, active.innerHTML);
+                this.service.getPosition(page, active.innerHTML);
             } else {
-                this.logistic.getPosition(page);
+                this.service.getPosition(page);
             }
         }
     }
 
-    onClick(event) {
+    onClick(event)
+    {
         let action = event.target.dataset.action;
         if (action && typeof this[action] === 'function') {
             this[action](event);
         }
     }
 
-    #emptyInput (){
+    #emptyInput()
+    {
         const form = document.getElementById('dov');
 
         let inputs = form.querySelectorAll('input');
         let i = 0;
         inputs.forEach(item=>{
-            if(item.value !== ''){
+            if (item.value !== '') {
                 i++;
             }
         })
-        if(i !== 0){
-            this.logistic.addDov();
-        }else{
-            console.log(i);
+        if (i !== 0) {
+            this.service.addDov();
         }
     }
 
@@ -241,7 +258,8 @@ class clickController{
      * Функционал кнопки плюс окна доверенности
      * @param elem
      */
-    #numberDover(elem){
+    #numberDover(elem)
+    {
         let value = document.querySelector('.number').value ?? 0;
         let matches = value.match(/(\D+)(\d+)/);
         if (matches) {
@@ -263,26 +281,28 @@ class clickController{
 }
 
 class changeController {
-    constructor(elem, provider, service, logistic) {
-        this.provider = provider;
+    constructor(elem, service)
+    {
         this.service  = service;
-        this.logistic  = logistic;
         elem.addEventListener('change', this.onChange.bind(this));  // Используем событие change
     }
 
     /**
      * обработчик вывода при поиске
      */
-    search(event) {
-        this.provider.clearActive ();
-        this.#printSearch (event.target);
+    search(event)
+    {
+        this.service.clearActive();
+        this.#printSearch(event.target);
     }
 
-    validate(event){
+    validate(event)
+    {
         this.service.validateForm('formAdd', '.AddLogisticSubmit')
     }
 
-    onChange(event) {
+    onChange(event)
+    {
         let actionElement = event.target.closest('[data-action]');
         if (actionElement) {
             let action = actionElement.dataset.action;
@@ -293,24 +313,24 @@ class changeController {
     }
 
 
-    #printSearch (target) {
+    #printSearch(target)
+    {
         let searchValue = target.value.trim();  // Используем target.value
 
         target.value = searchValue;  // Очищаем пробелы в поле ввода
 
         if (searchValue !== '') {
-            this.logistic.getPosition(1, searchValue);
+            this.service.getPosition(1, searchValue);
         } else {
-            this.logistic.getPosition();
+            this.service.getPosition();
         }
     }
 }
 
 class keyDownController {
-    constructor(elem, provider, service, logistic) {
-        this.provider = provider;
+    constructor(elem, service)
+    {
         this.service  = service;
-        this.logistic  = logistic;
         elem.addEventListener('keydown', this.keyDown.bind(this));  // Используем событие change
     }
 
@@ -318,15 +338,17 @@ class keyDownController {
      * обработчик нажатия enter
      * @param event
      */
-    enter(event){
-        this.provider.clearActive ();
-        this.#printSearch (event);
+    enter(event)
+    {
+        this.service.clearActive();
+        this.#printSearch(event);
     }
 
     /**
      * Обработчик события нажатия клавиш
      */
-    keyDown(event) {
+    keyDown(event)
+    {
         if (event.key === 'Enter') {
             event.preventDefault();
             let action = event.target.dataset.enter;
@@ -336,17 +358,16 @@ class keyDownController {
         }
     }
 
-    #printSearch (event){
+    #printSearch(event)
+    {
         let searchValue = document.querySelector("input.search").value;
 
         document.querySelector("input.search").value = searchValue.trim();
 
         if (searchValue.trim() !== '') {
-
-            this.logistic.getPosition(1, event.target.value.trim());
-
-        }else{
-            this.logistic.getPosition();
+            this.service.getPosition(1, event.target.value.trim());
+        } else {
+            this.service.getPosition();
         }
     }
 }

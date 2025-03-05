@@ -21,7 +21,7 @@ class Manager extends Controller
         ]);
 
         $search = $validPage['search'] ?? 'all';
-        $page = intval($validPage['page']);
+        $page = (int)$validPage['page'];
 
         // Вызываем метод managerAll с корректными параметрами
         $var = ManagerModel::managerAll($search, $page);
@@ -71,21 +71,26 @@ class Manager extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    static function editManager(Request $request): \Illuminate\Http\JsonResponse
+    public static function editManager(Request $request): \Illuminate\Http\JsonResponse
     {
-        $valideData = $request->validate([
-            'id' => 'required|integer|max:15',
-            'name'  => 'required|string|max:150',
-            'phone' => 'required|string|max:25',
-            'email' => 'required|string|max:150',
-        ]);
+        try {
+            $validatedData = $request->validate([
+                'id' => 'required|integer',
+                'name'  => 'required|string|max:150',
+                'phone' => 'required|string|max:250',
+                'email' => 'required|string|max:150',
+            ]);
 
-
-        $result = ManagerModel::editManager($valideData);
-        if ($result !== false) {
-            return response()->json($request);
+            $result = ManagerModel::editManager($validatedData);
+            if ($result !== false) {
+                return response()->json($request);
+            }
+            return response()->json(false);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ], 500);
         }
-        return response()->json(false);
     }
 
     /**

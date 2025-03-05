@@ -33,7 +33,7 @@
                         <tr>
                             <td>
                                 <div class="text" style="padding: 0 2.5em; text-align: left;">
-                                    <p style="font-family: 'Lato', sans-serif; font-weight: 400; font-size: 15px; line-height: 1.8; color: rgba(0,0,0);">{{ $body }}</p>
+                                    <p style="font-family: 'Lato', sans-serif; font-weight: 400; font-size: 15px; line-height: 1.8; color: rgba(0,0,0);">{!! $body !!} </p>
                                 </div>
                             </td>
                         </tr>

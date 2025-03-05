@@ -423,6 +423,7 @@ class Check_total extends Controller
         $validCheck = $request->validate([
             'id' => 'required|integer|min:1',
         ]);
+
         $email = \App\Models\Check_total::dataCompany($validCheck['id']);
 
         $result['email'] = $email->email_contact;

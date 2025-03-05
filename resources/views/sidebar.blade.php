@@ -20,6 +20,7 @@
         </ul>
     </div>
     <div class="mt-auto block_clock">
+        <div id="wi"></div>
         <div id="date_block"></div>
         <div id="clock"></div>
     </div>
@@ -27,7 +28,7 @@
         <div class="dropdown border-top">
             <a href="#" class="d-flex align-items-start justify-content-start p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="{{ Auth::user()->link_ava }}" alt="mdo" width="24" height="24" class="rounded-circle me-2">
-                <strong class="align-middle" style="font-size: 13px; color: #f0f1f2; text-overflow: ellipsis; overflow: hidden;">{{ Auth::user()->name }}</strong>
+                <strong class="align-middle " id="name_user" style="font-size: 13px; text-overflow: ellipsis; overflow: hidden;">{{ Auth::user()->name }}</strong>
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
                 <li><a class="dropdown-item" href="/profile">Профиль</a></li>

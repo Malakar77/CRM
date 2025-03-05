@@ -2,11 +2,13 @@ import { UserService } from "../../script.js";
 
 export class AttorneyModel{
 
-    constructor(urlId) {
+    constructor(urlId)
+    {
         this.urlId = urlId;
     }
 
-    searchDov() {
+    searchDov()
+    {
 
         UserService.preLoad();
 
@@ -26,12 +28,13 @@ export class AttorneyModel{
 
             }).catch(error => {
                 console.log(error)
-            UserService.deletePreloader(); // Вызов метода родителя
-            UserService.modalShow('error'); // Вызов метода родителя
-        });
+                UserService.deletePreloader(); // Вызов метода родителя
+                UserService.modalShow('error'); // Вызов метода родителя
+            });
     }
 
-    printAttorney (){
+    printAttorney()
+    {
 
         UserService.preLoad();
 
@@ -57,7 +60,7 @@ export class AttorneyModel{
                 // Добавляем iframe на страницу
                 document.body.appendChild(iframe);
                 // Подождем некоторое время для загрузки контента в iframe
-                setTimeout(function() {
+                setTimeout(function () {
                     // Вызываем функцию print() для печати
                     iframe.contentWindow.print();
                     // Удаляем iframe после печати
@@ -65,12 +68,13 @@ export class AttorneyModel{
                 }, 1000); // Используем значение времени ожидания, необходимое для загрузки контента в iframe
 
             }).catch(error => {
-            UserService.deletePreloader(); // Вызов метода родителя
-            UserService.modalShow('error'); // Вызов метода родителя
-        });
+                UserService.deletePreloader(); // Вызов метода родителя
+                UserService.modalShow('error'); // Вызов метода родителя
+            });
     }
 
-    downloadAttorney (){
+    downloadAttorney()
+    {
 
         UserService.preLoad();
 
@@ -103,25 +107,26 @@ export class AttorneyModel{
                 document.body.removeChild(downloadLink);
 
             }).catch(error => {
-            UserService.deletePreloader(); // Вызов метода родителя
-            UserService.modalShow('error'); // Вызов метода родителя
-        });
+                UserService.deletePreloader(); // Вызов метода родителя
+                UserService.modalShow('error'); // Вызов метода родителя
+            });
     }
 
-    #print (data){
+    #print(data)
+    {
 
 
         let dateOt = '';
-        if(data.date_ot){
+        if (data.date_ot) {
             dateOt =  UserService.formatDate(data.date_ot);
         }
 
         let dateDo = '';
-        if(data.date_do){
+        if (data.date_do) {
             dateDo =  UserService.formatDate(data.date_do);
         }
         let dateIssued = '';
-        if(data.logist.date_issued){
+        if (data.logist.date_issued) {
             dateIssued =  UserService.formatDate(data.logist.date_issued);
         }
 
@@ -171,7 +176,8 @@ export class AttorneyModel{
         document.getElementById('infoBlock').innerText = data.info ?? null;
     }
 
-    static #emptyValue(data){
+    static #emptyValue(data)
+    {
         return (data) ? data : null
     }
 

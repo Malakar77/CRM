@@ -1,3 +1,12 @@
+[data-bs-theme="dark"] {
+    --bs-body-bg: #2b3035;
+    --bs-body-color: #dee2e6 ;
+}
+
+[data-bs-theme="light"] {
+    --bs-body-bg:  #f8f9fa;
+    --bs-body-color: #101010;
+}
 
 @media (max-width: 1080px) {
     .container-block{
@@ -6,4 +15,12 @@
     .sadeBar{
         z-index: 1021;
     }
+}
+
+#nav{
+    background-color: var(--bs-body-bg);
+}
+
+.nav-link{
+    color: var(--bs-body-color) !important;
 }

@@ -49,7 +49,7 @@ class CheckMail extends Mailable
         return new Content(
             view: 'emails.check_email', // Шаблон письма
             with: [
-                'body' => $this->emailData['textEmail'],
+                'body' => nl2br($this->emailData['textEmail']),
                 'signature' => Auth::user()->signature,
                 'subject' => $this->emailData['subject'],
                 'manager' => Auth::user()->name,

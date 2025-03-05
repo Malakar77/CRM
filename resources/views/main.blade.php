@@ -17,6 +17,7 @@
 <body>
 <main class="d-flex flex-nowrap">
     @include('sidebar')
+    <div class="b-example-divider b-example-vr"></div>
     <div class="container-block">
         <div class="body mt-3">
             <div class="row">
@@ -55,7 +56,7 @@
                     <div class="p-3 bg-body-tertiary border rounded-3" style="max-height: 90vh; overflow: scroll">
                         <div class="row todo_header mb-1">
                             <div class="col title_todo ">
-                                <h6 class="align-middle mb-0">Календарь</h6>
+                                <h6 class="align-middle mb-0" style="border-bottom: 1px solid #f0f1f2; width: 50%;">Календарь</h6>
                             </div>
                             <div class="col">
                                 <button class="btn btn-outline-primary" id="delete-event" style="float: right"><i class="bi bi-trash"></i></button>

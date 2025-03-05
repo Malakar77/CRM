@@ -450,41 +450,48 @@ class Client extends Model
      */
     public static function search(string $text): \Illuminate\Support\Collection
     {
-        $text = strtoupper($text);
-        // Получаем список столбцов таблицы
+        $text = mb_strtoupper($text, 'UTF-8');
+
+        // Получаем список столбцов таблиц
         $columnsCompanies = Schema::getColumnListing('companies');
         $columnsInfo = Schema::getColumnListing('info_companies');
-        $columnCheck = Schema::getColumnListing('check_sale');
 
+
+        // Базовый запрос
         $query = DB::table('companies')
             ->select('companies.id', 'companies.name')
             ->leftJoin('info_companies', 'companies.id', '=', 'info_companies.id_company')
             ->leftJoin('check_sale', 'companies.id', '=', 'check_sale.id_client')
             ->where('companies.status', '=', 'client');
 
-        if (Auth::user()->admin !== true) {
+        // Фильтр по пользователю, если не админ
+        if (Auth::user() && Auth::user()->admin !== true) {
             $query->where('companies.user_id', Auth::user()->id);
         }
 
-        $query->where(function ($query) use ($columnsCompanies, $text) {
-            foreach ($columnsCompanies as $column) {
-                $query->orWhere('companies.' . $column, 'LIKE', '%' . $text . '%');
-            }
-        })
-            ->orWhere(function ($query) use ($columnsInfo, $text) {
-                $query->where('info_companies.status', '=', 'client'); // Фильтруем по статусу здесь
-                foreach ($columnsInfo as $column) {
-                    $query->orWhere('info_companies.' . $column, 'ILIKE', '%' . $text . '%');
+        // Группировка условий поиска
+        $query->where(function ($query) use ($columnsCompanies, $columnsInfo, $text) {
+            // Поиск по таблице companies
+            $query->where(function ($query) use ($columnsCompanies, $text) {
+                foreach ($columnsCompanies as $column) {
+                    $query->orWhere('companies.' . $column, 'LIKE', '%' . $text . '%');
                 }
-            })
-            ->orWhere(function ($query) use ($columnCheck, $text) {
-                $query->where('check_sale.status', '!=', ['100', 'trash']); // Фильтруем по статусу здесь
-                foreach ($columnCheck as $column) {
-                    $query->orWhere('check_sale.' . $column, 'LIKE', '%' . $text . '%');
-                }
-            })
-        ->groupBy('companies.id', 'companies.name');
+            });
 
+            // Поиск по таблице info_companies
+            $query->orWhere(function ($query) use ($columnsInfo, $text) {
+                $query->where('info_companies.status', '=', 'client'); // Фильтр по статусу
+                foreach ($columnsInfo as $column) {
+                    $query->orWhere('info_companies.' . $column, 'LIKE', '%' . $text . '%');
+                }
+            });
+
+        });
+
+        // Группировка результатов
+        $query->groupBy('companies.id', 'companies.name');
+
+        // Выполнение запроса
         return $query->get();
     }
 }

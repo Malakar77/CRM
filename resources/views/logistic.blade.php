@@ -345,7 +345,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Закрыть</button>
-                <button type="button" class="btn btn-outline-primary addCompanyButton" data-action="addCompanyButton">Сохранить изменения</button>
+                <button type="button" class="btn btn-outline-primary addCompanyButton" data-action="addCompanyProvider">Сохранить изменения</button>
             </div>
         </div>
     </div>
